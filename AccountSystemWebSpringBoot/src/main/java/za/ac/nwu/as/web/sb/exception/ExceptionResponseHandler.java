@@ -1,4 +1,4 @@
-package za.ac.nwu.as.web.sb.exception;
+/*package za.ac.nwu.as.web.sb.exception;
 
 public class ExceptionResponseHandler {
-}
+}*/
