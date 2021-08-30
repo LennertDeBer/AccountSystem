@@ -1,6 +1,4 @@
-za\ac\nwu\as\web\sb\exception\ExceptionResponseHandler.class
-za\ac\nwu\as\web\sb\controller\AccountTypeController.class
-za\ac\nwu\as\web\sb\config\WebConfig.class
-za\ac\nwu\as\web\sb\controller\DemoController.class
 za\ac\nwu\as\web\sb\config\SwaggerConfiguration.class
+za\ac\nwu\as\web\sb\controller\AccountTypeController.class
 za\ac\nwu\as\web\sb\RestServiceApplication.class
+za\ac\nwu\as\web\sb\config\WebConfig.class
