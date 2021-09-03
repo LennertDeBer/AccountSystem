@@ -13,6 +13,38 @@
 
     <artifactId>AccountSystemLogic</artifactId>
     <packaging>jar</packaging>
+<dependencies>
+    <dependency>
+        <groupId>za.ac.nwu.as</groupId>
+        <artifactId>AccountSystemTranslator</artifactId>
+        <version>${project.version}</version>
+        <scope>compile</scope>
+    </dependency>
 
+    <dependency>
+        <groupId>za.ac.nwu.as</groupId>
+        <artifactId>AccountSystemDomain</artifactId>
+        <version>${project.version}</version>
+        <scope>provided</scope>
+    </dependency>
+
+<!---->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+    <dependency>
+        <groupId>javax.transaction</groupId>
+        <artifactId>javax.transaction-api</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.jetbrains</groupId>
+        <artifactId>annotations</artifactId>
+        <version>RELEASE</version>
+        <scope>compile</scope>
+    </dependency>
+    <!---->
+</dependencies>
 
 </project>

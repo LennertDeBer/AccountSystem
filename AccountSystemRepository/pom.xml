@@ -37,11 +37,19 @@
 
 
         <!--11:18 repository setup added the code from the pdf from week3 for repository-->
-        <dependency>
+        <!--<dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <scope>compile</scope>
+        </dependency>-->
+        <dependency>
+            <groupId>com.oracle.database.jdbc</groupId>
+            <artifactId>ojdbc8</artifactId>
+            <scope>compile</scope>
+
         </dependency>
+
+
     </dependencies>
 
 

@@ -7,11 +7,11 @@ import java.util.Objects;
 
 
 @Entity
-@Table(name = "DEMO_ACCOUNT",schema = "VITRSA_SANDBOX")
+@Table(name = "ACCOUNT_TX",schema = "LENNERT")
 public class AccountTransaction implements Serializable {
     @Id
-    @SequenceGenerator(name = "VIT_ARS_GENERIC_SIQ", sequenceName = "VITRSA_SANDBOX.VIT_ARS_GENERIC_SIQ",allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "VIT_ARS_GENERIC_SIQ")
+    @SequenceGenerator(name = "VIT_RAS_GENERIC_SEQ", sequenceName = "LENNERT.VIT_RAS_GENERIC_SEQ",allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "VIT_RAS_GENERIC_SEQ")
 
     private Long transactionId;
 
@@ -45,6 +45,7 @@ public class AccountTransaction implements Serializable {
     public void setTransactionId(Long transactionId) {
         this.transactionId = transactionId;
     }
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="ACCOUNT_TYPE_ID")
     public AccountType getAccountType() {
