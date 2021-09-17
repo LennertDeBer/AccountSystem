@@ -33,8 +33,8 @@ public class AccountType implements Serializable {
     public AccountType() {
     }
     @Id
-    @SequenceGenerator(name = "VIT_ARS_GENERIC_SEQ", sequenceName = "LENNERT.VIT_ARS_GENERIC_SEQ",allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "VIT_ARS_GENERIC_SEQ")
+    @SequenceGenerator(name = "AC_TYPE_GENERIC_SEQ", sequenceName = "LENNERT.AC_TYPE_GENERIC_SEQ",allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "AC_TYPE_GENERIC_SEQ")
     @Column(name = "ACCOUNT_TYPE_ID")
     public Long getAccountTypeID() {
         return accountTypeID;
@@ -66,7 +66,8 @@ public class AccountType implements Serializable {
     public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
     }
-    @OneToMany(targetEntity = AccountTransaction.class,fetch = FetchType.LAZY,mappedBy = "accountType",orphanRemoval = true,cascade = CascadeType.PERSIST)
+
+    @OneToMany(targetEntity = AccountTransaction.class,fetch = FetchType.LAZY,mappedBy = "accountType",orphanRemoval = true/*,cascade = CascadeType.PERSIST*/)
     public Set<AccountTransaction> getAccountTransactions() {
         return accountTransactions;
     }
@@ -76,17 +77,18 @@ public class AccountType implements Serializable {
     }
 
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AccountType that = (AccountType) o;
-        return Objects.equals(accountTypeID, that.accountTypeID) && Objects.equals(mnemonic, that.mnemonic) && Objects.equals(accountTypeName, that.accountTypeName) && Objects.equals(creationDate, that.creationDate) && Objects.equals(accountTransactions, that.accountTransactions);
+        return Objects.equals(accountTypeID, that.accountTypeID) && Objects.equals(mnemonic, that.mnemonic) && Objects.equals(accountTypeName, that.accountTypeName) && Objects.equals(creationDate, that.creationDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountTypeID, mnemonic, accountTypeName, creationDate, accountTransactions);
+        return Objects.hash(accountTypeID, mnemonic, accountTypeName, creationDate);
     }
 
     @Override
@@ -95,8 +97,7 @@ public class AccountType implements Serializable {
                 "accountTypeID=" + accountTypeID +
                 ", mnemonic='" + mnemonic + '\'' +
                 ", accountTypeName='" + accountTypeName + '\'' +
-                ", creationDate=" + creationDate +
-                ", accountTransactions=" + accountTransactions +
+                ", creationDate=" + creationDate+
                 '}';
     }
 }

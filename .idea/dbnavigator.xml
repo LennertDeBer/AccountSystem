@@ -35,6 +35,9 @@
   <component name="DBNavigator.Project.ExecutionManager">
     <retain-sticky-names value="false" />
   </component>
+  <component name="DBNavigator.Project.FileConnectionMappingManager">
+    <mapping file-url="file://$PROJECT_DIR$/AccountSystemRepository/src/test/resources/schema.sql" connection-id="5a671330-d0fb-43a6-aa6c-06bc64236edc" session-id="MAIN" current-schema="LENNERT" />
+  </component>
   <component name="DBNavigator.Project.MethodExecutionManager">
     <method-browser />
     <execution-history>
@@ -51,7 +54,9 @@
     <filters />
   </component>
   <component name="DBNavigator.Project.ScriptExecutionManager" clear-outputs="true">
-    <recently-used-interfaces />
+    <recently-used-interfaces>
+      <mapping database-type="ORACLE" interface-id="DEFAULT" />
+    </recently-used-interfaces>
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections />
@@ -106,10 +111,10 @@
       <lookup-filters>
         <lookup-objects>
           <object-type name="SCHEMA" enabled="true" />
-          <object-type name="USER" enabled="false" />
-          <object-type name="ROLE" enabled="false" />
-          <object-type name="PRIVILEGE" enabled="false" />
-          <object-type name="CHARSET" enabled="false" />
+          <object-type name="USER" enabled="true" />
+          <object-type name="ROLE" enabled="true" />
+          <object-type name="PRIVILEGE" enabled="true" />
+          <object-type name="CHARSET" enabled="true" />
           <object-type name="TABLE" enabled="true" />
           <object-type name="VIEW" enabled="true" />
           <object-type name="MATERIALIZED VIEW" enabled="true" />
@@ -117,14 +122,14 @@
           <object-type name="CONSTRAINT" enabled="true" />
           <object-type name="DATASET TRIGGER" enabled="true" />
           <object-type name="DATABASE TRIGGER" enabled="true" />
-          <object-type name="SYNONYM" enabled="false" />
+          <object-type name="SYNONYM" enabled="true" />
           <object-type name="SEQUENCE" enabled="true" />
           <object-type name="PROCEDURE" enabled="true" />
           <object-type name="FUNCTION" enabled="true" />
           <object-type name="PACKAGE" enabled="true" />
           <object-type name="TYPE" enabled="true" />
-          <object-type name="DIMENSION" enabled="false" />
-          <object-type name="CLUSTER" enabled="false" />
+          <object-type name="DIMENSION" enabled="true" />
+          <object-type name="CLUSTER" enabled="true" />
           <object-type name="DBLINK" enabled="true" />
         </lookup-objects>
         <force-database-load value="false" />
@@ -225,7 +230,7 @@
             <filter-element type="OBJECT" id="index" selected="true" />
             <filter-element type="OBJECT" id="constraint" selected="true" />
             <filter-element type="OBJECT" id="trigger" selected="true" />
-            <filter-element type="OBJECT" id="synonym" selected="false" />
+            <filter-element type="OBJECT" id="synonym" selected="true" />
             <filter-element type="OBJECT" id="sequence" selected="true" />
             <filter-element type="OBJECT" id="procedure" selected="true" />
             <filter-element type="OBJECT" id="function" selected="true" />
@@ -236,21 +241,21 @@
             <filter-element type="OBJECT" id="dblink" selected="true" />
           </user-schema>
           <public-schema>
-            <filter-element type="OBJECT" id="table" selected="false" />
-            <filter-element type="OBJECT" id="view" selected="false" />
-            <filter-element type="OBJECT" id="materialized view" selected="false" />
-            <filter-element type="OBJECT" id="index" selected="false" />
-            <filter-element type="OBJECT" id="constraint" selected="false" />
-            <filter-element type="OBJECT" id="trigger" selected="false" />
-            <filter-element type="OBJECT" id="synonym" selected="false" />
-            <filter-element type="OBJECT" id="sequence" selected="false" />
-            <filter-element type="OBJECT" id="procedure" selected="false" />
-            <filter-element type="OBJECT" id="function" selected="false" />
-            <filter-element type="OBJECT" id="package" selected="false" />
-            <filter-element type="OBJECT" id="type" selected="false" />
-            <filter-element type="OBJECT" id="dimension" selected="false" />
-            <filter-element type="OBJECT" id="cluster" selected="false" />
-            <filter-element type="OBJECT" id="dblink" selected="false" />
+            <filter-element type="OBJECT" id="table" selected="true" />
+            <filter-element type="OBJECT" id="view" selected="true" />
+            <filter-element type="OBJECT" id="materialized view" selected="true" />
+            <filter-element type="OBJECT" id="index" selected="true" />
+            <filter-element type="OBJECT" id="constraint" selected="true" />
+            <filter-element type="OBJECT" id="trigger" selected="true" />
+            <filter-element type="OBJECT" id="synonym" selected="true" />
+            <filter-element type="OBJECT" id="sequence" selected="true" />
+            <filter-element type="OBJECT" id="procedure" selected="true" />
+            <filter-element type="OBJECT" id="function" selected="true" />
+            <filter-element type="OBJECT" id="package" selected="true" />
+            <filter-element type="OBJECT" id="type" selected="true" />
+            <filter-element type="OBJECT" id="dimension" selected="true" />
+            <filter-element type="OBJECT" id="cluster" selected="true" />
+            <filter-element type="OBJECT" id="dblink" selected="true" />
           </public-schema>
           <any-schema>
             <filter-element type="OBJECT" id="table" selected="true" />
@@ -334,10 +339,9 @@
         </extended-filter>
       </filters>
       <sorting enabled="true">
-        <sorting-element type="RESERVED_WORD" id="keyword" />
         <sorting-element type="RESERVED_WORD" id="datatype" />
+        <sorting-element type="RESERVED_WORD" id="keyword" />
         <sorting-element type="OBJECT" id="column" />
-        <sorting-element type="OBJECT" id="table" />
         <sorting-element type="OBJECT" id="view" />
         <sorting-element type="OBJECT" id="materialized view" />
         <sorting-element type="OBJECT" id="index" />
@@ -351,6 +355,7 @@
         <sorting-element type="OBJECT" id="type" />
         <sorting-element type="OBJECT" id="dimension" />
         <sorting-element type="OBJECT" id="cluster" />
+        <sorting-element type="OBJECT" id="table" />
         <sorting-element type="OBJECT" id="dblink" />
         <sorting-element type="OBJECT" id="schema" />
         <sorting-element type="OBJECT" id="role" />

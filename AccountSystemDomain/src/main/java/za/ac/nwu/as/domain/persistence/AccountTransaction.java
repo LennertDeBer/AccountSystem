@@ -9,13 +9,15 @@ import java.util.Objects;
 @Entity
 @Table(name = "ACCOUNT_TX",schema = "LENNERT")
 public class AccountTransaction implements Serializable {
+
+    private static final long serialVersionUID = 8177408680279093323L;
     @Id
-    @SequenceGenerator(name = "VIT_RAS_GENERIC_SEQ", sequenceName = "LENNERT.VIT_RAS_GENERIC_SEQ",allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "VIT_RAS_GENERIC_SEQ")
+    @SequenceGenerator(name = "AC_TX_GENERIC_SEQ", sequenceName = "LENNERT.AC_TX_GENERIC_SEQ",allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "AC_TX_GENERIC_SEQ")
 
     private Long transactionId;
 
-
+    //foreign key to accountType table
     private AccountType accountType;
 
 

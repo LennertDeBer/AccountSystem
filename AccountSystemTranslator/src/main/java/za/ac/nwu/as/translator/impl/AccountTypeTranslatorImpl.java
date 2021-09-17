@@ -4,9 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import za.ac.nwu.as.domain.dto.AccountTypeDto;
 import za.ac.nwu.as.domain.persistence.AccountType;
-import za.ac.nwu.as.translator.AccountTypeTranslator;
 import za.ac.nwu.as.repo.persistence.AccountTypeRepository;
+import za.ac.nwu.as.translator.AccountTypeTranslator;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,9 +41,10 @@ public AccountTypeTranslatorImpl(AccountTypeRepository accountTypeRepository)
             return new AccountTypeDto(accountType);
         } catch (Exception e) {
 
-            //TODO: log
+
             throw new RuntimeException("Unable to save to DB.", e);
         }}
+
 
 
         @Override
@@ -66,7 +70,38 @@ public AccountTypeTranslatorImpl(AccountTypeRepository accountTypeRepository)
         }
 
 
-        @Override
+    @PersistenceContext
+    private EntityManager manage;
+
+
+    public void deleteAccountType(String mnemonic) {
+        try {
+            List<AccountTypeDto> accountTypeDtos = getAllAccountTypes();
+            accountTypeDtos.remove(new AccountTypeDto());
+            accountTypeRepository.delete(accountTypeRepository.getAccountTypeByMnemonic(mnemonic));
+
+
+        } catch (Exception e) {
+
+            throw new RuntimeException("Unable to save to DB.", e);
+        }
+    }
+
+    @Override
+    public AccountTypeDto updateAccountType(String mnemonic, String newAccountTypeName, LocalDate newdate) {
+        try {
+            AccountType accountType = accountTypeRepository.getAccountTypeByMnemonic(mnemonic);
+            accountType.setAccountTypeName(newAccountTypeName);
+            accountType.setCreationDate(newdate);
+            return new AccountTypeDto(accountType);
+        } catch (Exception e) {
+
+            throw new RuntimeException("Unable to save to DB.", e);
+        }
+    }
+
+
+    @Override
         public AccountTypeDto getAccountTypeDtoByMnemonic(String mnemonic) {
             try {
                 return accountTypeRepository.getAccountTypeDtoByMnemonic(mnemonic);
@@ -75,4 +110,9 @@ public AccountTypeTranslatorImpl(AccountTypeRepository accountTypeRepository)
                 throw new RuntimeException("Unable to save to DB.", e);
             }
         }
+
+    @Override
+    public void someMethod() {
+
+    }
 }

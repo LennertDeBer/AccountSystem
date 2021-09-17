@@ -12,6 +12,7 @@ import java.util.List;
 @Transactional
 @Component
 public class FetchAccountTypeFlowImpl implements FetchAccountTypeFlow{
+
     private final AccountTypeTranslator accountTypeTranslator;
 
     @Autowired
@@ -28,5 +29,10 @@ public class FetchAccountTypeFlowImpl implements FetchAccountTypeFlow{
     public AccountTypeDto getAccountTypeByMnemonic(String mnemonic)
     {
         return accountTypeTranslator.getAccountTypeByMnemonicNativeQuery(mnemonic);
+    }
+
+    public boolean methodToTest()
+    {
+        return true;
     }
 }

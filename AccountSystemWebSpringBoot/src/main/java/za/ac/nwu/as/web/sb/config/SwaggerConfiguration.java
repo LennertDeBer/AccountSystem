@@ -32,8 +32,8 @@ public class SwaggerConfiguration {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-
-                .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class)).paths(PathSelectors.any())
+                .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
+                .paths(PathSelectors.any())
                 .build()
                 .pathMapping("/")
                 .apiInfo(apiInfo());
@@ -45,7 +45,7 @@ public class SwaggerConfiguration {
                 applicationDescription,
                 applicationVersion,
                 "",
-                new Contact("Your Name or Team Name", "", "email address"),
+                new Contact("Lennert", "", "email address"),
                 "",
                 "",
                 Collections.emptyList());
