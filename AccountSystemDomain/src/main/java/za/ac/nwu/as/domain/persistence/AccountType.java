@@ -29,6 +29,10 @@ public class AccountType implements Serializable {
         this.accountTypeName = accountTypeName;
         this.creationDate = creationDate;
     }
+    public AccountType(Long accountTypeID, String mnemonic) {
+        this.accountTypeID = accountTypeID;
+        this.mnemonic = mnemonic;
+    }
 
     public AccountType() {
     }
@@ -67,7 +71,7 @@ public class AccountType implements Serializable {
         this.creationDate = creationDate;
     }
 
-    @OneToMany(targetEntity = AccountTransaction.class,fetch = FetchType.LAZY,mappedBy = "accountType",orphanRemoval = true/*,cascade = CascadeType.PERSIST*/)
+    @OneToMany(targetEntity = AccountTransaction.class,fetch = FetchType.LAZY,mappedBy = "accountType" ,orphanRemoval = true,cascade = CascadeType.ALL)
     public Set<AccountTransaction> getAccountTransactions() {
         return accountTransactions;
     }

@@ -28,7 +28,6 @@ public interface AccountTypeRepository extends JpaRepository<AccountType, Long> 
 
 
 
-  /* @SQLDelete()*/
 
 
 

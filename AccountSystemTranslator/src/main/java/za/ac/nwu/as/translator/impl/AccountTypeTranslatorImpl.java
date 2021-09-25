@@ -107,7 +107,7 @@ public AccountTypeTranslatorImpl(AccountTypeRepository accountTypeRepository)
                 return accountTypeRepository.getAccountTypeDtoByMnemonic(mnemonic);
             } catch (Exception e) {
 
-                throw new RuntimeException("Unable to save to DB.", e);
+                throw new RuntimeException("Unable to retrieve from DB.", e);
             }
         }
 

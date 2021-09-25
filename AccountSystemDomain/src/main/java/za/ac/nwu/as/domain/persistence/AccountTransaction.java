@@ -11,34 +11,54 @@ import java.util.Objects;
 public class AccountTransaction implements Serializable {
 
     private static final long serialVersionUID = 8177408680279093323L;
-    @Id
-    @SequenceGenerator(name = "AC_TX_GENERIC_SEQ", sequenceName = "LENNERT.AC_TX_GENERIC_SEQ",allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "AC_TX_GENERIC_SEQ")
+
 
     private Long transactionId;
 
     //foreign key to accountType table
     private AccountType accountType;
 
+    //foreign key to accountType table
+    private AccountMember member;
 
-    private Long memberId;
 
-
-    private Long amount;
+    private Double amount;
 
 
     private LocalDate transactionDate;
 
-    public AccountTransaction(Long transactionId, AccountType accountType, Long memberId, Long amount, LocalDate transactionDate) {
+    public AccountTransaction(Long transactionId, AccountType accountType, AccountMember memberId, Double amount, LocalDate transactionDate) {
         this.transactionId = transactionId;
         this.accountType = accountType;
-        this.memberId = memberId;
+        this.member = memberId;
+        this.amount = amount;
+        this.transactionDate = transactionDate;
+    }
+
+    public AccountTransaction(AccountType accountType, AccountMember memberId, Double amount, LocalDate transactionDate) {
+        this.accountType = accountType;
+        this.member = memberId;
         this.amount = amount;
         this.transactionDate = transactionDate;
     }
 
     public AccountTransaction() {
     }
+
+    public AccountTransaction(AccountTransaction accountTransaction) {
+        this.transactionId = accountTransaction.getTransactionId();
+        this.accountType = accountTransaction.getAccountType();
+        this.member = accountTransaction.getMember();
+        this.amount = accountTransaction.getAmount();
+        this.transactionDate = accountTransaction.getTransactionDate();
+    }
+
+
+
+
+    @Id
+    @SequenceGenerator(name = "AC_TX_GENERIC_SEQ", sequenceName = "LENNERT.AC_TX_GENERIC_SEQ",allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "AC_TX_GENERIC_SEQ")
     @Column(name="TX_ID")
     public Long getTransactionId() {
         return transactionId;
@@ -57,26 +77,30 @@ public class AccountTransaction implements Serializable {
     public void setAccountType(AccountType accountType) {
         this.accountType = accountType;
     }
-    @Column(name="MEMBER_ID")
-    public Long getMemberId() {
-        return memberId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="MEMBER_ID")
+    public AccountMember getMember() {
+        return member;
     }
 
-    public void setMemberId(Long memberId) {
-        this.memberId = memberId;
+    public void setMember(AccountMember memberId) {
+        this.member = memberId;
     }
     @Column(name="AMOUNT")
-    public Long getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(Long amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
     @Column(name="TX_DATE")
     public LocalDate getTransactionDate() {
         return transactionDate;
     }
+
+
 
     public void setTransactionDate(LocalDate transactionDate) {
         this.transactionDate = transactionDate;
@@ -87,12 +111,12 @@ public class AccountTransaction implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AccountTransaction that = (AccountTransaction) o;
-        return Objects.equals(transactionId, that.transactionId) && Objects.equals(accountType, that.accountType) && Objects.equals(memberId, that.memberId) && Objects.equals(amount, that.amount) && Objects.equals(transactionDate, that.transactionDate);
+        return Objects.equals(transactionId, that.transactionId) && Objects.equals(accountType, that.accountType) && Objects.equals(member, that.member) && Objects.equals(amount, that.amount) && Objects.equals(transactionDate, that.transactionDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(transactionId, accountType, memberId, amount, transactionDate);
+        return Objects.hash(transactionId, accountType, member, amount, transactionDate);
     }
 
     @Override
@@ -100,8 +124,8 @@ public class AccountTransaction implements Serializable {
         return "AccountTransaction{" +
                 "transactionId=" + transactionId +
                 ", accountType=" + accountType +
-                ", memberId=" + memberId +
-                ", amount=" + amount +
+                ", memberId=" + member +
+                ", amount=" + String.format("%.2f",amount) +
                 ", transactionDate=" + transactionDate +
                 '}';
     }

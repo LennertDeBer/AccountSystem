@@ -14,12 +14,36 @@ import java.util.Objects;
 )
 public class AccountTypeDto implements Serializable {
     private static final long serialVersionUID = -534685320648028968L;
+    private  Long accountTypeId;
     private String mnemonic;
     private String accountTypeName;
     private LocalDate createDate;
 
     public AccountTypeDto() {
     }
+
+    public AccountTypeDto(Long accountTypeId, String mnemonic, String accountTypeName, LocalDate createDate) {
+        this.accountTypeId = accountTypeId;
+        this.mnemonic = mnemonic;
+        this.accountTypeName = accountTypeName;
+        this.createDate = createDate;
+    }
+    @ApiModelProperty(position = 1,
+            value = "AccountType ID",
+            name = "AccID",
+            notes = "Uniquely identities the account type",
+            dataType = "Java.lang.Long",
+            example = "1",
+            required = true)
+    public Long getAccountTypeId() {
+        return accountTypeId;
+    }
+
+    public void setAccountTypeId(Long accountTypeId) {
+        this.accountTypeId = accountTypeId;
+    }
+
+
 
     public AccountTypeDto(String mnemonic, String accountTypeName, LocalDate createDate) {
         this.mnemonic = mnemonic;
@@ -28,6 +52,7 @@ public class AccountTypeDto implements Serializable {
     }
 
     public AccountTypeDto(AccountType accountType) {
+        this.setAccountTypeId(accountType.getAccountTypeID());
         this.setAccountTypeName(accountType.getAccountTypeName());
         this.setCreationDate(accountType.getCreationDate());
         this.setMnemonic(accountType.getMnemonic());
@@ -78,8 +103,13 @@ public class AccountTypeDto implements Serializable {
      @JsonIgnore
     public AccountType getAccountType()
      {
-         return new AccountType(getMnemonic(), getAccountTypeName(), getCreationDate());
+         return new AccountType(getAccountTypeId(), getMnemonic(), getAccountTypeName(), getCreationDate());
      }
+    @JsonIgnore
+    public AccountType getAccountType(Long id,String mnemonic)
+    {
+        return new AccountType(id, mnemonic);
+    }
 
      @Override
     public int hashCode(){ return Objects.hash(mnemonic, accountTypeName, createDate);}
@@ -87,7 +117,8 @@ public class AccountTypeDto implements Serializable {
     @Override
     public String toString(){
         return "AccountTypeDto{"+
-                "mnenomic ='" + mnemonic + '\''
+                "ID= "+accountTypeId+
+                ",  mnenomic ='" + mnemonic + '\''
                 +", accountTypeName ='" + accountTypeName +'\''
                 +", creationDate =" + createDate
                 + '}';
