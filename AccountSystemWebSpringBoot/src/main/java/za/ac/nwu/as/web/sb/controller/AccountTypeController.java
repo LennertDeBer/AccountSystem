@@ -52,7 +52,7 @@ public class AccountTypeController {
     }
 
 
-    @PostMapping("New")
+    @PostMapping("/new")
     @ApiOperation(value ="Create a new AccountType.", notes ="Crates a new AccountType in the DB.")
     @ApiResponses(value = {
         @ApiResponse(code = 201, message = "The AccountType was created successfully", response = GeneralResponse.class),
@@ -106,7 +106,7 @@ public class AccountTypeController {
         GeneralResponse<AccountTypeDto> response = new GeneralResponse<>(true,accountType);
         return new ResponseEntity<>(response,HttpStatus.OK);
     }
-    @PutMapping("update/{mnemonic}")
+    @PutMapping("/update/{mnemonic}")
     @ApiOperation(value = "Update the specified AccountType.",notes = "Updates the AccountType corresponding to the given mnemonic.")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "AccountType updated"),

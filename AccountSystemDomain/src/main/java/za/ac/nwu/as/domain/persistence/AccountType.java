@@ -1,5 +1,7 @@
 package za.ac.nwu.as.domain.persistence;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -71,6 +73,7 @@ public class AccountType implements Serializable {
         this.creationDate = creationDate;
     }
 
+    @JsonIgnore
     @OneToMany(targetEntity = AccountTransaction.class,fetch = FetchType.LAZY,mappedBy = "accountType" ,orphanRemoval = true,cascade = CascadeType.ALL)
     public Set<AccountTransaction> getAccountTransactions() {
         return accountTransactions;

@@ -30,6 +30,8 @@ public class FetchAccountMemberFlowImpl implements FetchAccountMemberFlow {
 
     @Override
     public AccountMember getAccountMemberDbEntityByUsername(String accountMemberUsername) {
-        return accountMemberTranslator.getAccountMemberByUsernameNativeQuery(accountMemberUsername).getAccountMember();
+        AccountMemberDto ad = accountMemberTranslator.getAccountMemberByUsernameNativeQuery(accountMemberUsername);
+        AccountMember mem = ad.getAccountMember();
+        return mem;
     }
 }

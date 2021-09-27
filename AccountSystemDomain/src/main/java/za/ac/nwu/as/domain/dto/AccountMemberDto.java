@@ -34,6 +34,7 @@ public class AccountMemberDto implements Serializable {
         this.accountBalance = accountBalance;
     }
     public AccountMemberDto(AccountMember accountMember) {
+        this.setMemberId(accountMember.getMemberID());
         this.setAccountBalance(accountMember.getAccountBalance());
         this.setMemberUsername(accountMember.getMemberUsername());
     }
@@ -79,7 +80,7 @@ public class AccountMemberDto implements Serializable {
     @JsonIgnore
     public AccountMember getAccountMember()
     {
-        return new AccountMember(getMemberUsername(), getAccountBalance());
+        return new AccountMember(this.getMemberId(), this.getMemberUsername(), this.getAccountBalance());
     }
     @JsonIgnore
     public AccountMember getAccountMember(Long memberId,String username)

@@ -32,11 +32,6 @@ public class AccountTransactionDto implements Serializable {
 
 
 
-    //Ignore
-    private AccountType accountType;
-
-    //Ignore
-    private AccountMember accountMember;
 
 
 
@@ -46,6 +41,16 @@ public class AccountTransactionDto implements Serializable {
         this.typeId = typeId;
         this.accountMemberUsername = accountMemberUsername;
         this.memberId = memberId;
+        this.amount = amount;
+        this.transactionDate = transactionDate;
+    }
+
+    public AccountTransactionDto(Long transactionId, AccountType accountType, AccountMember accountMember, Double amount, LocalDate transactionDate) {
+        this.transactionId = transactionId;
+        this.accountTypeMnemonic = accountType.getMnemonic();
+        this.typeId = accountType.getAccountTypeID();
+        this.accountMemberUsername = accountMember.getMemberUsername();
+        this.memberId = accountMember.getMemberID();
         this.amount = amount;
         this.transactionDate = transactionDate;
 
@@ -207,21 +212,14 @@ public class AccountTransactionDto implements Serializable {
 
     @JsonIgnore
     public AccountType getAccountType(Long id ,String mnemonic) {
-        this.accountType = new AccountType(id, mnemonic);
-        return accountType;
+        return new AccountType(id, mnemonic);
+
     }
 
-    public void setAccountType(AccountType accountType) {
-        this.accountType = accountType;
-    }
+
     @JsonIgnore
     public AccountMember getMember(Long id ,String username) {
-        this.accountMember = new AccountMember(id, username);
-        return this.accountMember;
-    }
-
-    public void setMember(AccountMember member) {
-        this.accountMember = member;
+        return new AccountMember(id, username);
     }
 
     @JsonIgnore
