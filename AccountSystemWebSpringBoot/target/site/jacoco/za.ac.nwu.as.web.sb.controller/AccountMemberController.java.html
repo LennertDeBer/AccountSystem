@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AccountMemberController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">AccountSystemWebSpringBoot</a> &gt; <a href="index.source.html" class="el_package">za.ac.nwu.as.web.sb.controller</a> &gt; <span class="el_source">AccountMemberController.java</span></div><h1>AccountMemberController.java</h1><pre class="source lang-java linenums">package za.ac.nwu.as.web.sb.controller;
+
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import za.ac.nwu.as.domain.dto.AccountMemberDto;
+import za.ac.nwu.as.domain.service.GeneralResponse;
+import za.ac.nwu.as.logic.flow.CreateAccountMemberFlow;
+import za.ac.nwu.as.logic.flow.FetchAccountMemberFlow;
+import za.ac.nwu.as.logic.flow.ModifyAccountMemberFlow;
+
+import java.time.LocalDate;
+import java.util.List;
+
+@RestController
+@RequestMapping(&quot;account-member&quot;)
+public class AccountMemberController {
+
+
+    private final FetchAccountMemberFlow fetchAccountMemberFlow;
+    private final CreateAccountMemberFlow createAccountMemberFlow;
+    private final ModifyAccountMemberFlow modifyAccountMemberFlow;
+
+
+<span class="nc" id="L30">    public AccountMemberController(FetchAccountMemberFlow fetchAccountMemberFlow, CreateAccountMemberFlow createAccountMemberFlow, ModifyAccountMemberFlow modifyAccountMemberFlow) {</span>
+<span class="nc" id="L31">        this.fetchAccountMemberFlow = fetchAccountMemberFlow;</span>
+<span class="nc" id="L32">        this.createAccountMemberFlow = createAccountMemberFlow;</span>
+<span class="nc" id="L33">        this.modifyAccountMemberFlow = modifyAccountMemberFlow;</span>
+<span class="nc" id="L34">    }</span>
+
+    @GetMapping(&quot;view/all&quot;)
+    @ApiOperation(value = &quot;Gets all the configured Member accounts.&quot;, notes = &quot;Returns a list of member account's&quot;)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = &quot;Account types returned&quot;, response = GeneralResponse.class),
+            @ApiResponse(code = 400, message = &quot;Bad Request&quot;, response = GeneralResponse.class),
+            @ApiResponse(code = 404, message = &quot;Not found&quot;, response = GeneralResponse.class),
+            @ApiResponse(code = 500, message = &quot;Internal Server Error&quot;, response = GeneralResponse.class)
+    })
+    public ResponseEntity&lt;GeneralResponse&lt;List&lt;AccountMemberDto&gt;&gt;&gt; getAll() {
+<span class="nc" id="L45">        List&lt;AccountMemberDto&gt; accountMembers = fetchAccountMemberFlow.getAllAccountMembers();</span>
+<span class="nc" id="L46">        GeneralResponse&lt;List&lt;AccountMemberDto&gt;&gt; response = new GeneralResponse&lt;&gt; (true, accountMembers);</span>
+<span class="nc" id="L47">        return new ResponseEntity&lt;&gt;(response, HttpStatus.OK);</span>
+
+    }
+
+
+    @PostMapping(&quot;New&quot;)
+    @ApiOperation(value =&quot;Create a new AccountMember.&quot;, notes =&quot;Crates a new AccountMember in the DB.&quot;)
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = &quot;The AccountMember was created successfully&quot;, response = GeneralResponse.class),
+            @ApiResponse(code = 400, message = &quot;Bad Request&quot;, response = GeneralResponse.class),
+            @ApiResponse(code = 500, message = &quot;Internal Server Error&quot;, response = GeneralResponse.class)
+    })
+    public ResponseEntity&lt;GeneralResponse&lt;AccountMemberDto&gt;&gt; create(
+            @ApiParam(value = &quot;Request body to create a new AccountType&quot;,
+                    required = true)
+            @RequestBody AccountMemberDto accountMember){
+<span class="nc" id="L63">        AccountMemberDto accountMemberResponse = createAccountMemberFlow.create(accountMember);</span>
+<span class="nc" id="L64">        GeneralResponse&lt;AccountMemberDto&gt; response = new GeneralResponse&lt;&gt;(true,accountMemberResponse);</span>
+<span class="nc" id="L65">        return new ResponseEntity&lt;&gt;(response,HttpStatus.CREATED);</span>
+    }
+
+    @GetMapping(&quot;search/{userName}&quot;)
+    @ApiOperation(value = &quot;Fetches the specified AccountMember.&quot;,notes = &quot;Fetches the AccountMember corresponding to the given userName.&quot;)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = &quot;Goal Found&quot;),
+            @ApiResponse(code = 400, message = &quot;Bad Request&quot;, response = GeneralResponse.class),
+            @ApiResponse(code = 404, message = &quot;Resource not found&quot;, response = GeneralResponse.class),
+            @ApiResponse(code = 500, message = &quot;Internal Server Error&quot;, response = GeneralResponse.class)
+    })
+    public ResponseEntity&lt;GeneralResponse&lt;AccountMemberDto&gt;&gt; getAccountMember(
+            @ApiParam(value = &quot;The userName that uniquely identifies the AccountType.&quot;,
+                    example = &quot;MIKE&quot;,
+                    name = &quot;userName&quot;,
+                    required = true)
+            @PathVariable(&quot;userName&quot;) final String userName) {
+<span class="nc" id="L82">        AccountMemberDto accountMemberDto = fetchAccountMemberFlow.getAccountMemberByUsername(userName);</span>
+<span class="nc" id="L83">        GeneralResponse&lt;AccountMemberDto&gt; response = new GeneralResponse&lt;&gt;(true,accountMemberDto);</span>
+<span class="nc" id="L84">        return new ResponseEntity&lt;&gt;(response,HttpStatus.OK);</span>
+    }
+
+
+    @PutMapping(&quot;increase/{userName}&quot;)
+    @ApiOperation(value = &quot;Increase balance the specified AccountMember.&quot;,notes = &quot;Increase balance of AccountMember corresponding to the given username.&quot;)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = &quot;AccountMember balance is updated&quot;),
+            @ApiResponse(code = 400, message = &quot;Bad Request&quot;, response = GeneralResponse.class),
+            @ApiResponse(code = 404, message = &quot;Resource not found&quot;, response = GeneralResponse.class),
+            @ApiResponse(code = 500, message = &quot;Internal Server Error&quot;, response = GeneralResponse.class)
+    })
+    public ResponseEntity&lt;GeneralResponse&lt;AccountMemberDto&gt;&gt; increaseAccountMemberBalance(
+            @ApiParam(value = &quot;The username that uniquely identifies the AccountMember.&quot;,
+                    example = &quot;MIKE&quot;,
+                    name = &quot;userName&quot;,
+                    required = true)
+            @PathVariable(&quot;userName&quot;) final String userName,
+            @ApiParam(value = &quot;The  amount by which theAccountMember should be increased by.&quot;,
+                    example = &quot;10.55&quot;,
+                    name = &quot;amount&quot;,
+                    required = true)
+            @RequestParam(&quot;amount&quot;) final Double amount,/*Mnemonic for transaction,*/
+
+            @ApiParam(value = &quot;The optional new date with which to update the transaction date in ISO date formate (yyyy-MM-dd)\r\nIf empty/null it will not be updated&quot;,
+                    name = &quot;newCreationDate&quot;)
+            @RequestParam(value = &quot;newCreationDate&quot;,required = false)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+                    LocalDate newCreationDate) {
+
+        /*getAccountTypeByMnemonic*/
+        /*getAccountMember  using username*/
+
+<span class="nc" id="L117">        AccountMemberDto accountMemberDto = modifyAccountMemberFlow.increaseAccountMemberBalance(userName,amount,newCreationDate);</span>
+<span class="nc" id="L118">        GeneralResponse&lt;AccountMemberDto&gt; response = new GeneralResponse&lt;&gt;(true,accountMemberDto);</span>
+<span class="nc" id="L119">        return new ResponseEntity&lt;&gt;(response,HttpStatus.OK);</span>
+    }
+
+
+    @PutMapping(&quot;decrease/{userName}&quot;)
+    @ApiOperation(value = &quot;Decrease balance the specified AccountMember.&quot;,notes = &quot;Decrease balance of AccountMember corresponding to the given username.&quot;)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = &quot;AccountMember balance is updated&quot;),
+            @ApiResponse(code = 400, message = &quot;Bad Request&quot;, response = GeneralResponse.class),
+            @ApiResponse(code = 404, message = &quot;Resource not found&quot;, response = GeneralResponse.class),
+            @ApiResponse(code = 500, message = &quot;Internal Server Error&quot;, response = GeneralResponse.class)
+    })
+    public ResponseEntity&lt;GeneralResponse&lt;AccountMemberDto&gt;&gt; decreaseAccountMemberBalance(
+            @ApiParam(value = &quot;The username that uniquely identifies the AccountMember.&quot;,
+                    example = &quot;MIKE&quot;,
+                    name = &quot;userName&quot;,
+                    required = true)
+            @PathVariable(&quot;userName&quot;) final String userName,
+            @ApiParam(value = &quot;The  amount by which theAccountMember should be increased by.&quot;,
+                    example = &quot;10.55&quot;,
+                    name = &quot;amount&quot;,
+                    required = true)
+            @RequestParam(&quot;amount&quot;) final Double amount,/*Mnemonic for transaction,*/
+
+            @ApiParam(value = &quot;The optional new date with which to update the transaction date in ISO date formate (yyyy-MM-dd)\r\nIf empty/null it will not be updated&quot;,
+                    name = &quot;newCreationDate&quot;)
+            @RequestParam(value = &quot;newCreationDate&quot;,required = false)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+                    LocalDate newCreationDate) {
+<span class="nc" id="L148">        AccountMemberDto accountMemberDto = modifyAccountMemberFlow.decreaseAccountMemberBalance(userName,amount,newCreationDate);</span>
+<span class="nc" id="L149">        GeneralResponse&lt;AccountMemberDto&gt; response = new GeneralResponse&lt;&gt;(true,accountMemberDto);</span>
+<span class="nc" id="L150">        return new ResponseEntity&lt;&gt;(response,HttpStatus.OK);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

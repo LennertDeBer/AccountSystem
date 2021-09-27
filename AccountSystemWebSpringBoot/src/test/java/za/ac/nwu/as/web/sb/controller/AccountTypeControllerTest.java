@@ -207,4 +207,31 @@ public class AccountTypeControllerTest {
         verify(modifyAccountTypeFlow, never()).updateAccountType(anyString(), anyString(), isNull());
         verify(modifyAccountTypeFlow, never()).updateAccountType(anyString(), isNull(), isNull());
     }
+
+
+    @Test
+    public void getAccountType() throws Exception {
+
+        String expectedResponse = "{\"successful\":true,\"payload\":" +
+                "{\"accountTypeId\":3,\"mnemonic\":\"PLAY\",\"accountTypeName\":\"The new Play account type name\",\"creationDate\":[2021,4,1]}}";
+
+
+
+        AccountTypeDto accountType = new AccountTypeDto(Long.valueOf(3),"PLAY", "The new Play account type name", LocalDate.parse("2021-04-01"));
+
+
+
+        when(fetchAccountTypeFlow.getAccountTypeByMnemonic("PLAY")).thenReturn(accountType);
+        MvcResult mvcResult = mockMvc.perform(get((String.format("%s/%s",ACCOUNT_TYPE_CONTROLLER_URL,"search/PLAY")))
+                        .servletPath(APP_URL)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .content("PLAY")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andReturn();
+        verify(fetchAccountTypeFlow,times(1)).getAccountTypeByMnemonic("PLAY");
+         String val = mvcResult.getResponse().getContentAsString();
+        assertEquals(expectedResponse,mvcResult.getResponse().getContentAsString());
+
+    }
 }

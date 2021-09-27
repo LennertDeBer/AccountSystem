@@ -24,6 +24,8 @@
 
         <springfox-swagger.version>2.9.2</springfox-swagger.version>
         <swagger.version>1.5.20</swagger.version>
+
+        <haltOnFailure>true</haltOnFailure>
     </properties>
 
     <modules>
@@ -85,28 +87,7 @@
 
 
     <dependencies>
-<!--
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
 
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-inline</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-junit-jupiter</artifactId>
-            <scope>test</scope>
-        </dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -114,4 +95,68 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>0.8.3</version>
+                    <configuration>
+                        <!--TODO: Use: "mvn clean install -DhaltOnFailure=false" to continue builds locally that fail test coverage-->
+                        <haltOnFailure>${haltOnFailure}</haltOnFailure>
+                        <rules>
+                            <rule>
+                                <element>CLASS</element>
+                                <excludes>
+                                    <exclude>za.ac.nwu.as.domain.*</exclude>
+                                    <exclude>za.ac.nwu.as.logic.config.LogicConfig</exclude>
+                                    <exclude>za.ac.nwu.as.web.sb.config.*</exclude>
+                                </excludes>
+                                <limits>
+                                    <limit>
+                                        <counter>INSTRUCTION</counter>
+                                        <value>COVERDRATIO</value>
+                                        <minimum>0</minimum>
+                                    </limit>
+                                    <limit>
+                                        <counter>LINE</counter>
+                                        <value>COVERDRATIO</value>
+                                        <minimum>0</minimum>
+                                    </limit>
+                                    <limit>
+                                        <counter>BRANCH</counter>
+                                        <value>COVERDRATIO</value>
+                                        <minimum>0</minimum>
+                                    </limit>
+                                </limits>
+                            </rule>
+                        </rules>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>jacoco-check</id>
+                            <phase>test</phase>
+                           <!-- <goals>
+                                <goal>check</goal>
+                            </goals>-->
+                        </execution>
+                        <execution>
+                            <id>default-prepare-agent</id>
+                            <goals>
+                                <goal>prepare-agent</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>default-report</id>
+                            <phase>prepare-package</phase>
+                            <goals>
+                                <goal>report</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 </project>
