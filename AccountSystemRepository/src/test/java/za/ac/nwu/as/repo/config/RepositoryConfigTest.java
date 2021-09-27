@@ -1,0 +1,19 @@
+package za.ac.nwu.as.repo.config;
+
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import static org.junit.Assert.*;
+
+
+@Configuration
+@EnableTransactionManagement
+@EnableJpaRepositories("za.ac.nwu.as.repo.persistence")
+@EntityScan("za.ac.nwu.as.domain.persistence")
+@PropertySource(value = "classpath:application-test-db.properties")
+public class RepositoryConfigTest {
+
+}

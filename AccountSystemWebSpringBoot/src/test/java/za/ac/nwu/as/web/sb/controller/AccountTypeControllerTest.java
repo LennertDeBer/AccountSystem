@@ -156,14 +156,12 @@ public class AccountTypeControllerTest {
 
 
         String val = mvcResult.getResponse().getContentAsString();
-        //Unit test MVC 30:20
 
-        /*The breakpoint is the line where the error occurs (might be because of the id field) */
-       // times(1)
+
         verify(modifyAccountTypeFlow,atLeastOnce()).updateAccountType(eq("PLAY"),eq("The new Play account type name"),eq(LocalDate.parse("2021-04-01")));
 
 
-        //working
+
         assertEquals(expectedResponse,
                 mvcResult.getResponse().getContentAsString());
     }
