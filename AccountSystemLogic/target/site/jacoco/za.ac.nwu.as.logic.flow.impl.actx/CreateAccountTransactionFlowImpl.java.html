@@ -34,7 +34,7 @@ public class CreateAccountTransactionFlowImpl implements CreateAccountTransactio
     @Override
     public AccountTransactionDto create(AccountTransactionDto accountTransactionDto) {
         //LOGGER.warn(&quot;The input object was {}&quot;,accountTransactionDto);
-    //    LOGGER.info(&quot;The input object was {}&quot;, accountTransactionDto);
+<span class="fc" id="L37">        LOGGER.info(&quot;The input object was {}&quot;, accountTransactionDto);</span>
 
 
         //AccountTransactionDto.setTransactionId(new Long(50L));
@@ -49,8 +49,8 @@ public class CreateAccountTransactionFlowImpl implements CreateAccountTransactio
 <span class="fc" id="L49">        AccountMember accountMember = fetchAccountMemberFlow.getAccountMemberDbEntityByUsername(accountTransactionDto.getAccountMemberUsername());</span>
 
        // if(LOGGER.isInfoEnabled()) {
-    //        LOGGER.info(&quot;Got AccountType for {} and the AccountTypeId is {}&quot;, accountTransactionDto.getAccountTypeMnemonic(), accountType.getAccountTypeID());
-    //        LOGGER.info(&quot;Got AccountMember for  {} and the AccountMemberId is {}&quot;, accountTransactionDto.getAccountMemberUsername(), accountMember.getMemberID());
+       //     LOGGER.info(&quot;Got AccountType for {} and the AccountTypeId is {}&quot;, accountTransactionDto.getAccountTypeMnemonic(), accountType.getAccountTypeID());
+        //    LOGGER.info(&quot;Got AccountMember for  {} and the AccountMemberId is {}&quot;, accountTransactionDto.getAccountMemberUsername(), accountMember.getMemberID());
        // }
 <span class="fc" id="L55">        AccountTransaction accountTransaction = accountTransactionDto.buildAccountTransaction(accountType, accountMember);</span>
 
@@ -66,7 +66,7 @@ public class CreateAccountTransactionFlowImpl implements CreateAccountTransactio
 
 <span class="fc" id="L67">        AccountTransactionDto result =new AccountTransactionDto(createAccountTransaction);</span>
        // LOGGER.warn(&quot;The return object is {}&quot;,result);
-    //    LOGGER.info(&quot;The return object is {}&quot;,result);
+<span class="fc" id="L69">        LOGGER.info(&quot;The return object is {}&quot;,result);</span>
 <span class="fc" id="L70">        return result;</span>
     }
 

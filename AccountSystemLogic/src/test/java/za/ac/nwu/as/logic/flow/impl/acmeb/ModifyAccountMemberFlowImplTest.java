@@ -24,7 +24,6 @@ public class ModifyAccountMemberFlowImplTest {
 
     @Mock
     private AccountMemberTranslator translator;
-
     @InjectMocks
     private ModifyAccountMemberFlowImpl flow;
 
@@ -49,6 +48,7 @@ public class ModifyAccountMemberFlowImplTest {
 
         when(translator.increaseAccountMemberBalance(anyString(),
                 anyDouble(), any(LocalDate.class))).thenReturn(member);
+       // when(translator.getAccountMemberByUsernameNativeQuery(anyString())).thenReturn(member);
         AccountMemberDto result  = flow.increaseAccountMemberBalance(member.getMemberUsername(),member.getAccountBalance(),LocalDate.parse("2021-09-01"));
         assertNotNull(result);
 
@@ -102,23 +102,49 @@ public class ModifyAccountMemberFlowImplTest {
 
     @Test
     public void decreaseAccountMemberBalance() throws Exception {
-        String expectedResponse = "AccountMemberDto{memberId=1,  memberUsername='MIKE', accountBalance=61.00}";
 
-        AccountMemberDto member = new AccountMemberDto(Long.valueOf(1),"MIKE", 61.0);
+        String expectedResponse = "AccountMemberDto{memberId=1,  memberUsername='MIKE', accountBalance=20.00}";
+
+        AccountMemberDto member = new AccountMemberDto(Long.valueOf(1), "MIKE", 20.0);
 
         when(translator.decreaseAccountMemberBalance(anyString(),
                 anyDouble(), any(LocalDate.class))).thenReturn(member);
-        AccountMemberDto result  = flow.decreaseAccountMemberBalance(member.getMemberUsername(),member.getAccountBalance(),LocalDate.parse("2021-09-01"));
+        when(translator.getAccountMemberByUsernameNativeQuery(anyString())).thenReturn(member);
+        Double amount = 10.55;
+        AccountMemberDto result = flow.decreaseAccountMemberBalance("MIKE", amount, LocalDate.parse("2021-09-01"));
         assertNotNull(result);
 
 
         verify(translator,
                 times(1)).decreaseAccountMemberBalance(
-                anyString(),anyDouble(), any(LocalDate.class));
+                anyString(), anyDouble(), any(LocalDate.class));
         String val = result.toString();
         assertEquals(expectedResponse,
                 result.toString());
+
     }
+    @Test
+    public void decreaseAccountMemberBalanceTo() throws Exception {
+        String expectedResponse = "AccountMemberDto{memberId=1,  memberUsername='MIKE', accountBalance=9.95}";
+        AccountMemberDto member = new AccountMemberDto(Long.valueOf(1), "MIKE", 9.95);
+
+        when(translator.decreaseAccountMemberBalance(anyString(),
+                anyDouble(), any(LocalDate.class))).thenReturn(member);
+        when(translator.getAccountMemberByUsernameNativeQuery(anyString())).thenReturn(member);
+        Double amount = 10.55;
+        AccountMemberDto result = flow.decreaseAccountMemberBalance("MIKE", amount, LocalDate.parse("2021-09-01"));
+        assertNotNull(result);
+
+
+        verify(translator,
+                times(1)).decreaseAccountMemberBalance(
+                anyString(), anyDouble(), any(LocalDate.class));
+        String val = result.toString();
+        assertEquals(expectedResponse,
+                result.toString());
+
+    }
+
 
     @Test
     public void decreaseAccountMemberBalanceWithNoOptionalDate() throws Exception {

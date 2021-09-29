@@ -48,9 +48,9 @@ public class AccountTransactionTranslatorImpl implements AccountTransactionTrans
           // LOGGER.info(&quot;The id is {}&quot;,val);
 <span class="fc" id="L49">            AccountTransaction accountTransaction = repo.getAccountTransactionByIdNativeQuery(val);</span>
 <span class="fc" id="L50">            return new AccountTransactionDto(accountTransaction);</span>
-<span class="nc" id="L51">        } catch (Exception e) {</span>
+<span class="fc" id="L51">        } catch (Exception e) {</span>
 
-<span class="nc" id="L53">            throw new RuntimeException(&quot;Unable to save to DB.&quot;, e);</span>
+<span class="fc" id="L53">            throw new RuntimeException(&quot;Unable to save to DB.&quot;, e);</span>
         }
     }
 

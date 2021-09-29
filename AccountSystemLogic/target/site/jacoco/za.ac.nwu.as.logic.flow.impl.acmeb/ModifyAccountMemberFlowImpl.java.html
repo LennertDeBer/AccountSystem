@@ -2,6 +2,8 @@
 
 import org.springframework.stereotype.Component;
 import za.ac.nwu.as.domain.dto.AccountMemberDto;
+import za.ac.nwu.as.logic.flow.CreateAccountTransactionFlow;
+import za.ac.nwu.as.logic.flow.FetchAccountMemberFlow;
 import za.ac.nwu.as.logic.flow.ModifyAccountMemberFlow;
 import za.ac.nwu.as.translator.AccountMemberTranslator;
 
@@ -13,18 +15,27 @@ import java.time.LocalDate;
 @Component
 public class ModifyAccountMemberFlowImpl implements ModifyAccountMemberFlow {
     private final AccountMemberTranslator accountMemberTranslator;
-
-<span class="fc" id="L17">    public ModifyAccountMemberFlowImpl(AccountMemberTranslator accountMemberTranslator) {</span>
-<span class="fc" id="L18">        this.accountMemberTranslator = accountMemberTranslator;</span>
-<span class="fc" id="L19">    }</span>
+            private final FetchAccountMemberFlow fetchAccountMemberFlow;
+            private final CreateAccountTransactionFlow createAccountTransactionFlow;
+<span class="fc" id="L20">    public ModifyAccountMemberFlowImpl(AccountMemberTranslator accountMemberTranslator,FetchAccountMemberFlow fetchAccountMemberFlow,CreateAccountTransactionFlow createAccountTransactionFlow) {</span>
+<span class="fc" id="L21">        this.accountMemberTranslator = accountMemberTranslator;</span>
+<span class="fc" id="L22">        this.fetchAccountMemberFlow = fetchAccountMemberFlow;</span>
+<span class="fc" id="L23">        this.createAccountTransactionFlow = createAccountTransactionFlow;</span>
+<span class="fc" id="L24">    }</span>
 
     @Override
     public AccountMemberDto increaseAccountMemberBalance(String userName, Double amount, LocalDate newCreationDate) {
 
-<span class="pc bpc" id="L24" title="1 of 2 branches missed.">        if (null == newCreationDate) {</span>
-<span class="nc" id="L25">            return accountMemberTranslator.increaseAccountMemberBalance(userName, amount, LocalDate.now());</span>
+       /* AccountType accountType =new AccountType(Long.valueOf(1),&quot;MILES&quot;,&quot;Miles&quot;, LocalDate.parse(&quot;2020-01-01&quot;));
+        AccountMemberDto memberDto =  accountMemberTranslator.getAccountMemberByUsernameNativeQuery(userName);
+        AccountMember member = memberDto.getAccountMember();*/
+<span class="pc bpc" id="L32" title="1 of 2 branches missed.">        if (null == newCreationDate) {</span>
+<span class="nc" id="L33">            newCreationDate =  LocalDate.now();</span>
         }
-<span class="fc" id="L27">        return accountMemberTranslator.increaseAccountMemberBalance(userName, amount, newCreationDate);</span>
+      /*  AccountTransactionDto dt = new AccountTransactionDto(Long.valueOf(1),accountType.getMnemonic(),accountType.getAccountTypeID(),member.getMemberUsername(), member.getMemberID(), amount,newCreationDate);
+
+        createAccountTransactionFlow.create(dt);
+<span class="fc" id="L38">        */return accountMemberTranslator.increaseAccountMemberBalance(userName, amount, newCreationDate);</span>
     }
 
     @Override
@@ -33,10 +44,14 @@ public class ModifyAccountMemberFlowImpl implements ModifyAccountMemberFlow {
             return accountMemberTranslator.decreaseAccountMemberBalance(userName, amount, newCreationDate);
         /*}
         catch (RuntimeException e) {*/
-<span class="pc bpc" id="L36" title="1 of 2 branches missed.">            if (null == newCreationDate) {</span>
-<span class="nc" id="L37">                return accountMemberTranslator.decreaseAccountMemberBalance(userName, amount, LocalDate.now());</span>
+<span class="pc bpc" id="L47" title="1 of 2 branches missed.">            if (null == newCreationDate) {</span>
+<span class="nc" id="L48">                return accountMemberTranslator.decreaseAccountMemberBalance(userName, amount, LocalDate.now());</span>
             }
-<span class="fc" id="L39">        return accountMemberTranslator.decreaseAccountMemberBalance(userName, amount, newCreationDate);</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">            if(accountMemberTranslator.getAccountMemberByUsernameNativeQuery(userName).getAccountBalance()&lt;amount)</span>
+            {
+<span class="fc" id="L52">                amount =0.00;</span>
+                }
+<span class="fc" id="L54">        return accountMemberTranslator.decreaseAccountMemberBalance(userName, amount, newCreationDate);</span>
 
         /*}
         finally{

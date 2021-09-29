@@ -23,8 +23,8 @@ public class AccountMemberTranslatorImpl implements AccountMemberTranslator {
         try {
 <span class="fc" id="L24">            AccountMember accountMember = accountMemberRepository.save(accountMemberDto.getAccountMember());</span>
 <span class="fc" id="L25">            return new AccountMemberDto(accountMember);</span>
-<span class="nc" id="L26">        } catch (Exception e) {</span>
-<span class="nc" id="L27">            throw new RuntimeException(&quot;Unable to save to DB.&quot;, e);</span>
+<span class="fc" id="L26">        } catch (Exception e) {</span>
+<span class="fc" id="L27">            throw new RuntimeException(&quot;Unable to save to DB.&quot;, e);</span>
         }
     }
 
@@ -62,9 +62,9 @@ public class AccountMemberTranslatorImpl implements AccountMemberTranslator {
 *
 * */
 <span class="fc" id="L64">            return new AccountMemberDto(accountMember);</span>
-<span class="nc" id="L65">        } catch (Exception e) {</span>
+<span class="fc" id="L65">        } catch (Exception e) {</span>
 
-<span class="nc" id="L67">            throw new RuntimeException(&quot;Unable to save to DB.&quot;, e);</span>
+<span class="fc" id="L67">            throw new RuntimeException(&quot;Unable to save to DB.&quot;, e);</span>
         }
     }
 
@@ -81,31 +81,20 @@ public class AccountMemberTranslatorImpl implements AccountMemberTranslator {
 
     @Override
     public AccountMemberDto decreaseAccountMemberBalance(String userName, Double amount, LocalDate newCreationDate) {
-<span class="fc" id="L84">        AccountMember accountMember = accountMemberRepository.getAccountMemberByUsernameNativeQuery(userName);</span>
+
         try {
 
-<span class="pc bpc" id="L87" title="1 of 2 branches missed.">            if (accountMember.getAccountBalance() &lt; amount) {</span>
-                         /* set the date for the transaction inside the AccountTransaction.
-
-            AccountMember accountMember = accountMemberRepository.getAccountMemberByUsernameNativeQuery(userName);
-
-            accountMember.setAccountTypeName(newAccountTypeName);
-
-*
-*
-* */
-<span class="nc" id="L97">                amount=0.00;</span>
-            }
+<span class="fc" id="L87">            AccountMember accountMember = accountMemberRepository.getAccountMemberByUsernameNativeQuery(userName);</span>
 
 
-<span class="fc" id="L101">            accountMember.setAccountBalance((accountMember.getAccountBalance() - amount));</span>
-<span class="fc" id="L102">            return new AccountMemberDto(accountMember);</span>
+<span class="fc" id="L90">            accountMember.setAccountBalance((accountMember.getAccountBalance() - amount));</span>
+<span class="fc" id="L91">            return new AccountMemberDto(accountMember);</span>
 
 
 
-<span class="nc" id="L106">        } catch (Exception e) {</span>
+<span class="fc" id="L95">        } catch (Exception e) {</span>
 
-<span class="nc" id="L108">            throw new RuntimeException(&quot;Unable to save to DB.&quot;, e);</span>
+<span class="fc" id="L97">            throw new RuntimeException(&quot;Unable to save to DB.&quot;, e);</span>
         }
     }
 }

@@ -14,16 +14,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import za.ac.nwu.as.domain.dto.AccountMemberDto;
-import za.ac.nwu.as.logic.flow.CreateAccountMemberFlow;
-import za.ac.nwu.as.logic.flow.FetchAccountMemberFlow;
-import za.ac.nwu.as.logic.flow.ModifyAccountMemberFlow;
+import za.ac.nwu.as.logic.flow.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -36,7 +33,10 @@ public class AccountMemberControllerTest {
     private static final String APP_URL ="/account-system/mvc";
     private static final String ACCOUNT_TYPE_CONTROLLER_URL = APP_URL + "/account-member";
 
-
+    @Mock
+    private FetchAccountTransactionFlow fetchAccountTransactionFlow;
+    @Mock
+    private FetchAccountTypeFlow fetchAccountTypeFlow;
     @Mock
     private FetchAccountMemberFlow fetchAccountMemberFlow;
    @Mock
@@ -87,9 +87,7 @@ public class AccountMemberControllerTest {
 
         AccountMemberDto members = new AccountMemberDto(Long.valueOf(1),"MIKE", 50.50);
 
-
-        when(createAccountMemberFlow.create(eq(members))).then(returnsFirstArg());
-
+        when(createAccountMemberFlow.create(members)).thenReturn(members);
         MvcResult mvcResult = mockMvc.perform(post((String.format("%s/%s",ACCOUNT_TYPE_CONTROLLER_URL,"new")))
                         .servletPath(APP_URL)
                         .accept(MediaType.APPLICATION_JSON)
@@ -132,13 +130,22 @@ public class AccountMemberControllerTest {
        String expectedResponse = "{\"successful\":true,\"payload\":"+
                 "{\"memberId\":1,\"memberUsername\":\"MIKE\",\"accountBalance\":61.0}}";
 
-        AccountMemberDto  member = new AccountMemberDto(Long.valueOf(1),"MIKE", 61.0);
+        AccountMemberDto  members = new AccountMemberDto(Long.valueOf(1),"MIKE", 61.0);
 
+  /*      AccountTypeDto accountTypes = new AccountTypeDto(Long.valueOf(1),"MILES", "Miles", LocalDate.parse("2020-01-01"));
 
+     //   AccountTypeDto accountTypes = new AccountTypeDto(Long.valueOf(1),"MILES", "Miles", LocalDate.parse("2020-01-01"));
+        AccountType accountType =accountTypes.getAccountType();
+        AccountMember member = members.getAccountMember();
+        when(createAccountMemberFlow.create(eq(members))).then(returnsFirstArg());
+        when(fetchAccountMemberFlow.getAccountMemberDbEntityByUsername(eq(member.getMemberUsername()))).thenReturn(member);
+        when(fetchAccountTypeFlow.getAccountTypeDbEntityByMnemonic(eq(accountType.getMnemonic()))).thenReturn(accountType);
+*/
 
-        when(modifyAccountMemberFlow.increaseAccountMemberBalance(anyString(),
-                anyDouble(), any(LocalDate.class))).thenReturn(member);
-
+       /* when(modifyAccountMemberFlow.increaseAccountMemberBalance(anyString(),
+                anyDouble(), any(LocalDate.class))).thenReturn(members);
+        */when(modifyAccountMemberFlow.increaseAccountMemberBalance(anyString(),
+                anyDouble(), any(LocalDate.class))).thenReturn(members);
         MvcResult mvcResult = mockMvc.perform(put((String.format("%s/%s",
                         ACCOUNT_TYPE_CONTROLLER_URL, "increase/MIKE")))
                         .param("amount", "10.5")

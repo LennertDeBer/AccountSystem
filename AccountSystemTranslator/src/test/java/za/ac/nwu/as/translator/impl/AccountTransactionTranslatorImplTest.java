@@ -78,6 +78,8 @@ public class AccountTransactionTranslatorImplTest {
                 result.toString());
     }
 
+
+ 
     @Test
     public void getAccountTransactionByIdNativeQuery() {
         String expectedResponse = "AccountTransactionDto{transactionId=1, accountTypeMnemonic='MILES', typeId=1, accountMemberUsername='MIKE', memberId=1, amount=30.55, transactionDate=2021-01-01}";
@@ -97,6 +99,28 @@ public class AccountTransactionTranslatorImplTest {
 
 
         verify(repo,times(1)).getAccountTransactionByIdNativeQuery(anyLong());
+        String val = result.toString();
+        assertEquals(expectedResponse,val);
+    }
+    @Test(expected = RuntimeException.class)
+    public void getAccountTransactionByIdNativeQueryError() {
+        String expectedResponse = "AccountTransactionDto{transactionId=1, accountTypeMnemonic='MILES', typeId=1, accountMemberUsername='MIKE', memberId=1, amount=30.55, transactionDate=2021-01-01}";
+
+
+
+        AccountType accountType = new AccountType(Long.valueOf(1),"MILES", "Miles", LocalDate.parse("2021-09-01"));
+        AccountMember members = new AccountMember(Long.valueOf(1),"MIKE", 50.50);
+
+        AccountTransaction accountTransaction = new AccountTransaction(Long.valueOf(1),accountType,members,30.55, LocalDate.parse("2021-01-01"));
+
+
+       // when(repo.getAccountTransactionByIdNativeQuery(isNull())).thenThrow(RuntimeException.class);
+
+        AccountTransactionDto result  = translator.getAccountTransactionByIdNativeQuery(null);
+        assertNotNull(result);
+
+
+       // verify(repo,times(1)).getAccountTransactionByIdNativeQuery(anyLong());
         String val = result.toString();
         assertEquals(expectedResponse,val);
     }

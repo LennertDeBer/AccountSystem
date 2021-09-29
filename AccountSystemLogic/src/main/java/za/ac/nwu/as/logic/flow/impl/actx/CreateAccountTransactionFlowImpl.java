@@ -34,7 +34,7 @@ public class CreateAccountTransactionFlowImpl implements CreateAccountTransactio
     @Override
     public AccountTransactionDto create(AccountTransactionDto accountTransactionDto) {
         //LOGGER.warn("The input object was {}",accountTransactionDto);
-    //    LOGGER.info("The input object was {}", accountTransactionDto);
+        LOGGER.info("The input object was {}", accountTransactionDto);
 
 
         //AccountTransactionDto.setTransactionId(new Long(50L));
@@ -49,8 +49,8 @@ public class CreateAccountTransactionFlowImpl implements CreateAccountTransactio
         AccountMember accountMember = fetchAccountMemberFlow.getAccountMemberDbEntityByUsername(accountTransactionDto.getAccountMemberUsername());
 
        // if(LOGGER.isInfoEnabled()) {
-    //        LOGGER.info("Got AccountType for {} and the AccountTypeId is {}", accountTransactionDto.getAccountTypeMnemonic(), accountType.getAccountTypeID());
-    //        LOGGER.info("Got AccountMember for  {} and the AccountMemberId is {}", accountTransactionDto.getAccountMemberUsername(), accountMember.getMemberID());
+       //     LOGGER.info("Got AccountType for {} and the AccountTypeId is {}", accountTransactionDto.getAccountTypeMnemonic(), accountType.getAccountTypeID());
+        //    LOGGER.info("Got AccountMember for  {} and the AccountMemberId is {}", accountTransactionDto.getAccountMemberUsername(), accountMember.getMemberID());
        // }
         AccountTransaction accountTransaction = accountTransactionDto.buildAccountTransaction(accountType, accountMember);
 
@@ -66,7 +66,7 @@ public class CreateAccountTransactionFlowImpl implements CreateAccountTransactio
 
         AccountTransactionDto result =new AccountTransactionDto(createAccountTransaction);
        // LOGGER.warn("The return object is {}",result);
-    //    LOGGER.info("The return object is {}",result);
+        LOGGER.info("The return object is {}",result);
         return result;
     }
 

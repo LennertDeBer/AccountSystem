@@ -12,9 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import za.ac.nwu.as.domain.dto.AccountMemberDto;
 import za.ac.nwu.as.domain.service.GeneralResponse;
-import za.ac.nwu.as.logic.flow.CreateAccountMemberFlow;
-import za.ac.nwu.as.logic.flow.FetchAccountMemberFlow;
-import za.ac.nwu.as.logic.flow.ModifyAccountMemberFlow;
+import za.ac.nwu.as.logic.flow.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -25,14 +23,18 @@ public class AccountMemberController {
 
 
     private final FetchAccountMemberFlow fetchAccountMemberFlow;
+    //private final FetchAccountTypeFlow fetchAccountTypeFlow;
     private final CreateAccountMemberFlow createAccountMemberFlow;
     private final ModifyAccountMemberFlow modifyAccountMemberFlow;
+  //  private final CreateAccountTransactionFlow createAccountTransactionFlow;
     private static final Logger LOGGER = LoggerFactory.getLogger(AccountMemberController.class);
 
-    public AccountMemberController(FetchAccountMemberFlow fetchAccountMemberFlow, CreateAccountMemberFlow createAccountMemberFlow, ModifyAccountMemberFlow modifyAccountMemberFlow) {
+    public AccountMemberController(FetchAccountMemberFlow fetchAccountMemberFlow, CreateAccountMemberFlow createAccountMemberFlow, ModifyAccountMemberFlow modifyAccountMemberFlow/*,FetchAccountTypeFlow fetchAccountTypeFlow,CreateAccountTransactionFlow createAccountTransactionFlow*/) {
         this.fetchAccountMemberFlow = fetchAccountMemberFlow;
         this.createAccountMemberFlow = createAccountMemberFlow;
         this.modifyAccountMemberFlow = modifyAccountMemberFlow;
+     //   this.fetchAccountTypeFlow = fetchAccountTypeFlow;
+      //  this.createAccountTransactionFlow = createAccountTransactionFlow;
     }
 
     @GetMapping("view/all")
@@ -116,7 +118,10 @@ public class AccountMemberController {
 
         /*getAccountTypeByMnemonic*/
         /*getAccountMember  using username*/
-
+    /*  AccountType ty =  fetchAccountTypeFlow.getAccountTypeDbEntityByMnemonic("MILES");
+        AccountMember mem = fetchAccountMemberFlow.getAccountMemberDbEntityByUsername(userName);
+        createAccountTransactionFlow.create(new AccountTransactionDto(Long.valueOf(1),ty.getMnemonic(),ty.getAccountTypeID(),mem.getMemberUsername(),mem.getMemberID(),amount,LocalDate.now()));
+        */
         AccountMemberDto accountMemberDto = modifyAccountMemberFlow.increaseAccountMemberBalance(userName,amount,newCreationDate);
         GeneralResponse<AccountMemberDto> response = new GeneralResponse<>(true,accountMemberDto);
         return new ResponseEntity<>(response,HttpStatus.OK);

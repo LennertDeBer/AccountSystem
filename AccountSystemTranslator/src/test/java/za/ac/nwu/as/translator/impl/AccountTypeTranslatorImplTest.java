@@ -69,6 +69,19 @@ public class AccountTypeTranslatorImplTest {
         assertEquals(accountTypeToBeCreated1,
                 result.toString());
     }
+    @Test(expected = RuntimeException.class)
+    public void createError() {
+        String accountTypeToBeCreated1 ="AccountTypeDto{ID= 1,  mnenomic ='MILES', accountTypeName ='Miles', creationDate =2020-01-01}";
+        AccountType accountType1 = new AccountType(Long.valueOf(1),"MILES", "Miles", LocalDate.parse("2020-01-01"));
+
+        //when(acty.getAccountType()).thenReturn(accountType1);
+        //when(repo.save(any(AccountType.class))).thenReturn(accountType1);
+        AccountTypeDto result  = translator.create(null);
+        assertNotNull(result);
+       // verify(repo, atLeastOnce()).save(any(AccountType.class));
+        assertEquals(accountTypeToBeCreated1,
+                result.toString());
+    }
 
     @Test
     public void getAccountTypeByMnemonicNativeQuery() {
@@ -86,6 +99,26 @@ public class AccountTypeTranslatorImplTest {
         assertNotNull(result);
         // verify(accountTypeDto, atLeastOnce()).getAccountType();
         verify(repo, atLeastOnce()).getAccountTypeByMnemonicNativeQuery(anyString());
+        String val =result.toString();
+        assertEquals(expectedResponse,
+                result.toString());
+    }
+    @Test(expected = RuntimeException.class)
+    public void getAccountTypeByMnemonicNativeQueryError() {
+
+        String expectedResponse = "AccountTypeDto{ID= 3,  mnenomic ='PLAY', accountTypeName ='The new Play account type name', creationDate =2021-04-01}";
+
+
+
+        AccountType accountType = new AccountType(Long.valueOf(3),"PLAY", "The new Play account type name", LocalDate.parse("2021-04-01"));
+
+
+        //when(repo.getAccountTypeByMnemonicNativeQuery(anyString())).thenReturn(accountType);
+        //AccountType accountType =accountTypeDto.getAccountType();
+        AccountTypeDto result  = translator.getAccountTypeByMnemonicNativeQuery(null);
+        assertNotNull(result);
+        // verify(accountTypeDto, atLeastOnce()).getAccountType();
+      //  verify(repo, atLeastOnce()).getAccountTypeByMnemonicNativeQuery(anyString());
         String val =result.toString();
         assertEquals(expectedResponse,
                 result.toString());

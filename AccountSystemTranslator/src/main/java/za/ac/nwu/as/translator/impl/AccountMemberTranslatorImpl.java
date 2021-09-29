@@ -81,21 +81,10 @@ public class AccountMemberTranslatorImpl implements AccountMemberTranslator {
 
     @Override
     public AccountMemberDto decreaseAccountMemberBalance(String userName, Double amount, LocalDate newCreationDate) {
-        AccountMember accountMember = accountMemberRepository.getAccountMemberByUsernameNativeQuery(userName);
+
         try {
 
-            if (accountMember.getAccountBalance() < amount) {
-                         /* set the date for the transaction inside the AccountTransaction.
-
             AccountMember accountMember = accountMemberRepository.getAccountMemberByUsernameNativeQuery(userName);
-
-            accountMember.setAccountTypeName(newAccountTypeName);
-
-*
-*
-* */
-                amount=0.00;
-            }
 
 
             accountMember.setAccountBalance((accountMember.getAccountBalance() - amount));

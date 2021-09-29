@@ -91,7 +91,7 @@ public class CreateAccountTransactionFlowImplTest {
 
 
         when(translator.save(any(AccountTransaction.class))).thenReturn(accountTransaction);
-        AccountTransactionDto result  = flow.create(new AccountTransactionDto());
+        AccountTransactionDto result  = flow.create(accountTransactionRe);
         assertNotNull(result);
         verify(translator, atLeastOnce()).save(any(AccountTransaction.class));
         String val= result.toString();
