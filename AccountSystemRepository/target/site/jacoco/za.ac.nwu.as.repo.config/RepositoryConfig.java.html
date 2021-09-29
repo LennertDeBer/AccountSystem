@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RepositoryConfig.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">AccountSystemRepository</a> &gt; <a href="index.source.html" class="el_package">za.ac.nwu.as.repo.config</a> &gt; <span class="el_source">RepositoryConfig.java</span></div><h1>RepositoryConfig.java</h1><pre class="source lang-java linenums">package za.ac.nwu.as.repo.config;
+
+
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+@Configuration
+@EnableTransactionManagement
+@EnableJpaRepositories(&quot;za.ac.nwu.as.repo.persistence&quot;)
+@EntityScan(&quot;za.ac.nwu.as.domain.persistence&quot;)
+@PropertySource(value = &quot;classpath:application-db.properties&quot;)
+<span class="nc" id="L15">public class RepositoryConfig {</span>
+
+/*    private static final String[] ENTITY_PACKAGES_TO_SCAN = {&quot;za.ac.new.as.domain.persistence&quot;};
+private static final String PERSISTENCE_UNIT_NAME = &quot;account.system.persistence&quot;;
+@Bean
+    public DataSource dataSource()
+    {
+        EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
+        return builder.setType(EmbeddedDatabaseType.HSQL)
+                .addScript(&quot;script/schema.sql&quot;)
+                .addScript(&quot;script/data.sql&quot;)
+                .build();
+    }
+
+    @Bean
+    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean(){
+    final LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
+        entityManagerFactoryBean.setDataSource(dataSource());
+        entityManagerFactoryBean.setPackagesToScan(ENTITY_PACKAGES_TO_SCAN);
+        entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+        entityManagerFactoryBean.setJpaProperties(buildJpaProperties());
+        entityManagerFactoryBean.setPersistenceUnitName(PERSISTENCE_UNIT_NAME);
+        return entityManagerFactoryBean;
+
+    }*/
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

@@ -59,10 +59,12 @@ public class AccountTypeControllerTest {
     @Test
     public void getAll() throws Exception{
         String expectedResponse = "{\"successful\":true,\"payload\":["+
-        "{\"accountTypeId\":1,\"mnemonic\":\"MILES\",\"accountTypeName\":\"Miles\",\"creationDate\":[2020,1,1]},"+
+                "{\"accountTypeId\":1,\"mnemonic\":\"MILES\",\"accountTypeName\":\"Miles\",\"creationDate\":[2020,1,1]},"+
                 "{\"accountTypeId\":2,\"mnemonic\":\"BUCKS\",\"accountTypeName\":\"Bucks\",\"creationDate\":[2020,1,1]},"+
                 "{\"accountTypeId\":3,\"mnemonic\":\"PLAY\",\"accountTypeName\":\"AppCurrency\",\"creationDate\":[2021,9,11]},"+
                 "{\"accountTypeId\":4,\"mnemonic\":\"RAND\",\"accountTypeName\":\"South-African\",\"creationDate\":[2020,1,1]}]}";
+
+
 
         List<AccountTypeDto> accountTypes = new ArrayList<>();
         accountTypes.add(new AccountTypeDto(Long.valueOf(1),"MILES","Miles", LocalDate.parse("2020-01-01")));
@@ -84,7 +86,7 @@ public class AccountTypeControllerTest {
 
     @Test
     public void create() throws Exception {
-        String accountTypeToBeCreated ="{\"accountTypeId\":1,\"mnemonic\":\"MILES\",\"accountTypeName\":\"Miles\",\"creationDate\":[2020,1,1]},";
+        String accountTypeToBeCreated ="{\"accountTypeId\":1,\"mnemonic\":\"MILES\",\"accountTypeName\":\"Miles\",\"creationDate\":[2020,1,1]}";
         String expectedResponse = "{\"successful\":true,\"payload\":" +"{\"accountTypeId\":1,\"mnemonic\":\"MILES\",\"accountTypeName\":\"Miles\",\"creationDate\":[2020,1,1]}}";
 
 
@@ -103,6 +105,7 @@ public class AccountTypeControllerTest {
                         .andReturn();
 
         verify(createAccountTypeFlow, times(1)).create(eq(accountType));
+        String val =mvcResult.getResponse().getContentAsString();
         assertEquals(expectedResponse,
                 mvcResult.getResponse().getContentAsString());
     }

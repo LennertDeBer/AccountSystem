@@ -6,4 +6,8 @@ import java.util.List;
 
 public interface FetchAccountTransactionFlow {
     List<AccountTransactionDto> getAllAccountTransaction();
+
+
+
+    AccountTransactionDto getAccountTransactionById(Double id);
 }

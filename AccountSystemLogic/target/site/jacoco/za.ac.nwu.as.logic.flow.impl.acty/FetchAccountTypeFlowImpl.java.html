@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FetchAccountTypeFlowImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">AccountSystemLogic</a> &gt; <a href="index.source.html" class="el_package">za.ac.nwu.as.logic.flow.impl.acty</a> &gt; <span class="el_source">FetchAccountTypeFlowImpl.java</span></div><h1>FetchAccountTypeFlowImpl.java</h1><pre class="source lang-java linenums">package za.ac.nwu.as.logic.flow.impl.acty;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import za.ac.nwu.as.domain.dto.AccountTypeDto;
+import za.ac.nwu.as.domain.persistence.AccountType;
+import za.ac.nwu.as.logic.flow.FetchAccountTypeFlow;
+import za.ac.nwu.as.translator.AccountTypeTranslator;
+
+import javax.transaction.Transactional;
+import java.util.List;
+
+@Transactional
+@Component
+public class FetchAccountTypeFlowImpl implements FetchAccountTypeFlow{
+
+    private final AccountTypeTranslator accountTypeTranslator;
+
+    @Autowired
+<span class="fc" id="L20">    public FetchAccountTypeFlowImpl(AccountTypeTranslator accountTypeTranslator){</span>
+<span class="fc" id="L21">        this.accountTypeTranslator = accountTypeTranslator;</span>
+<span class="fc" id="L22">    }</span>
+
+    @Override
+    public List&lt;AccountTypeDto&gt; getAllAccountTypes() {
+<span class="fc" id="L26">        return accountTypeTranslator.getAllAccountTypes();</span>
+    }
+
+    @Override
+    public AccountTypeDto getAccountTypeByMnemonic(String mnemonic)
+    {
+<span class="fc" id="L32">        return accountTypeTranslator.getAccountTypeByMnemonicNativeQuery(mnemonic);</span>
+    }
+
+    @Override
+    public AccountType getAccountTypeDbEntityByMnemonic(String accountTypeMnemonic) {
+
+<span class="fc" id="L38">                AccountTypeDto dtp = accountTypeTranslator.getAccountTypeByMnemonicNativeQuery(accountTypeMnemonic);</span>
+<span class="fc" id="L39">        AccountType val =   dtp.getAccountType();</span>
+
+<span class="fc" id="L41">        return val;</span>
+    }
+
+    public boolean methodToTest()
+    {
+<span class="fc" id="L46">        return true;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

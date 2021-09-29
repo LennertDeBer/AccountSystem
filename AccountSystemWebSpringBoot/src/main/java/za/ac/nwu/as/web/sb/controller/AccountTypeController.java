@@ -46,7 +46,9 @@ public class AccountTypeController {
             })
     public ResponseEntity<GeneralResponse<List<AccountTypeDto>>> getAll() {
         List<AccountTypeDto> accountTypes = fetchAccountTypeFlow.getAllAccountTypes();
+
         GeneralResponse<List<AccountTypeDto>> response = new GeneralResponse<> (true, accountTypes);
+
         return new ResponseEntity<>(response, HttpStatus.OK);
 
     }

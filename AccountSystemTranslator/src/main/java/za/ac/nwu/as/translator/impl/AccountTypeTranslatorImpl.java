@@ -101,7 +101,7 @@ public AccountTypeTranslatorImpl(AccountTypeRepository accountTypeRepository)
     }
 
 
-    @Override
+   /* @Override
         public AccountTypeDto getAccountTypeDtoByMnemonic(String mnemonic) {
             try {
                 return accountTypeRepository.getAccountTypeDtoByMnemonic(mnemonic);
@@ -109,10 +109,7 @@ public AccountTypeTranslatorImpl(AccountTypeRepository accountTypeRepository)
 
                 throw new RuntimeException("Unable to retrieve from DB.", e);
             }
-        }
+        }*/
 
-    @Override
-    public void someMethod() {
 
-    }
 }

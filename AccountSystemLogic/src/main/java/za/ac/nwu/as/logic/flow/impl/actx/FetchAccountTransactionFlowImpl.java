@@ -28,4 +28,11 @@ public class FetchAccountTransactionFlowImpl implements FetchAccountTransactionF
        }
        return transactionDto;
     }
+
+    @Override
+    public AccountTransactionDto getAccountTransactionById(Double id) {
+        return accountTransactionTranslator.getAccountTransactionByIdNativeQuery(id);
+    }
+
+
 }

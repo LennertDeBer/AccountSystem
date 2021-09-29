@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import za.ac.nwu.as.domain.dto.AccountTransactionDto;
 import za.ac.nwu.as.domain.service.GeneralResponse;
 import za.ac.nwu.as.logic.flow.CreateAccountTransactionFlow;
-import za.ac.nwu.as.logic.flow.FetchAccountMemberFlow;
 import za.ac.nwu.as.logic.flow.FetchAccountTransactionFlow;
-import za.ac.nwu.as.logic.flow.FetchAccountTypeFlow;
 
 import java.util.List;
 
@@ -22,20 +20,20 @@ public class AccountTransactionController {
 
     private final FetchAccountTransactionFlow fetchAccountTransactionFlow;
     private final CreateAccountTransactionFlow createAccountTransactionFlow;
-    private final FetchAccountTypeFlow fetchAccountTypeFlow;
-    private final FetchAccountMemberFlow fetchAccountMemberFlow;
+    /*private final FetchAccountTypeFlow fetchAccountTypeFlow;
+    private final FetchAccountMemberFlow fetchAccountMemberFlow;*/
 
-    public AccountTransactionController(FetchAccountTransactionFlow fetchAccountTransactionFlow, CreateAccountTransactionFlow createAccountTransactionFlow, FetchAccountTypeFlow fetchAccountTypeFlow, FetchAccountMemberFlow fetchAccountMemberFlow) {
+    public AccountTransactionController(FetchAccountTransactionFlow fetchAccountTransactionFlow, CreateAccountTransactionFlow createAccountTransactionFlow/*, FetchAccountTypeFlow fetchAccountTypeFlow, FetchAccountMemberFlow fetchAccountMemberFlow*/) {
         this.fetchAccountTransactionFlow = fetchAccountTransactionFlow;
         this.createAccountTransactionFlow = createAccountTransactionFlow;
-        this.fetchAccountTypeFlow = fetchAccountTypeFlow;
-        this.fetchAccountMemberFlow = fetchAccountMemberFlow;
+       /* this.fetchAccountTypeFlow = fetchAccountTypeFlow;
+        this.fetchAccountMemberFlow = fetchAccountMemberFlow;*/
     }
 
     @GetMapping("/all")
-    @ApiOperation(value = "Gets all the configured Account types.", notes = "Returns a list of account types")
+    @ApiOperation(value = "Gets all the configured Account transactions.", notes = "Returns a list of account transactions")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Account types returned", response = GeneralResponse.class),
+            @ApiResponse(code = 200, message = "Account transactions returned", response = GeneralResponse.class),
             @ApiResponse(code = 400, message = "Bad Request", response = GeneralResponse.class),
             @ApiResponse(code = 404, message = "Not found", response = GeneralResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = GeneralResponse.class)
@@ -48,10 +46,10 @@ public class AccountTransactionController {
     }
 
 
-    @PostMapping("New")
+    @PostMapping("new")
     @ApiOperation(value ="Create a new AccountType.", notes ="Crates a new AccountType in the DB.")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "The AccountType was created successfully", response = GeneralResponse.class),
+            @ApiResponse(code = 201, message = "The AccountTransaction was created successfully", response = GeneralResponse.class),
             @ApiResponse(code = 400, message = "Bad Request", response = GeneralResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = GeneralResponse.class)
     })
@@ -97,5 +95,27 @@ public class AccountTransactionController {
         AccountTransactionDto accountTransactionsResponse = createAccountTransactionFlow.create(accountTransactions);
         GeneralResponse<AccountTransactionDto> response = new GeneralResponse<>(true,accountTransactionsResponse);
         return new ResponseEntity<>(response,HttpStatus.CREATED);
+    }
+
+
+
+    @GetMapping("search/{id}")
+    @ApiOperation(value = "Gets all the configured Account types.", notes = "Returns a list of account types")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Account types returned", response = GeneralResponse.class),
+            @ApiResponse(code = 400, message = "Bad Request", response = GeneralResponse.class),
+            @ApiResponse(code = 404, message = "Not found", response = GeneralResponse.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = GeneralResponse.class)
+    })
+    public ResponseEntity<GeneralResponse<AccountTransactionDto>> getAccountTransactionById(
+            @ApiParam(value = "The  id by which the AccountTransaction can be uniquely identified.",
+                    example = "1",
+                    name = "id",
+                    required = true)
+            @RequestParam("id") final Double id) {
+        AccountTransactionDto accountTransactions = fetchAccountTransactionFlow.getAccountTransactionById(id);
+        GeneralResponse<AccountTransactionDto> response = new GeneralResponse<> (true, accountTransactions);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+
     }
 }

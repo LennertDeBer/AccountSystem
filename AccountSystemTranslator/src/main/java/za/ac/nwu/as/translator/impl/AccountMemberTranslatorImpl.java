@@ -24,8 +24,6 @@ public class AccountMemberTranslatorImpl implements AccountMemberTranslator {
             AccountMember accountMember = accountMemberRepository.save(accountMemberDto.getAccountMember());
             return new AccountMemberDto(accountMember);
         } catch (Exception e) {
-
-
             throw new RuntimeException("Unable to save to DB.", e);
         }
     }
@@ -83,9 +81,10 @@ public class AccountMemberTranslatorImpl implements AccountMemberTranslator {
 
     @Override
     public AccountMemberDto decreaseAccountMemberBalance(String userName, Double amount, LocalDate newCreationDate) {
+        AccountMember accountMember = accountMemberRepository.getAccountMemberByUsernameNativeQuery(userName);
         try {
-            AccountMember accountMember = accountMemberRepository.getAccountMemberByUsernameNativeQuery(userName);
-            if (accountMember.getAccountBalance() >= amount) {
+
+            if (accountMember.getAccountBalance() < amount) {
                          /* set the date for the transaction inside the AccountTransaction.
 
             AccountMember accountMember = accountMemberRepository.getAccountMemberByUsernameNativeQuery(userName);
@@ -95,12 +94,12 @@ public class AccountMemberTranslatorImpl implements AccountMemberTranslator {
 *
 *
 * */
-                accountMember.setAccountBalance((accountMember.getAccountBalance() - amount));
-                return new AccountMemberDto(accountMember);
+                amount=0.00;
             }
 
 
-return null;
+            accountMember.setAccountBalance((accountMember.getAccountBalance() - amount));
+            return new AccountMemberDto(accountMember);
 
 
 

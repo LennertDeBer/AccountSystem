@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AccountTransactionTranslatorImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">AccountSystemTranslator</a> &gt; <a href="index.source.html" class="el_package">za.ac.nwu.as.translator.impl</a> &gt; <span class="el_source">AccountTransactionTranslatorImpl.java</span></div><h1>AccountTransactionTranslatorImpl.java</h1><pre class="source lang-java linenums">package za.ac.nwu.as.translator.impl;
+
+import org.springframework.stereotype.Component;
+import za.ac.nwu.as.domain.dto.AccountTransactionDto;
+import za.ac.nwu.as.domain.persistence.AccountTransaction;
+import za.ac.nwu.as.repo.persistence.AccountTransactionRepository;
+import za.ac.nwu.as.translator.AccountTransactionTranslator;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Component
+public class AccountTransactionTranslatorImpl implements AccountTransactionTranslator {
+ //   private static final Logger LOGGER = LoggerFactory.getLogger(AccountTransactionTranslatorImpl.class);
+    private AccountTransactionRepository repo;
+
+<span class="fc" id="L17">    public AccountTransactionTranslatorImpl(AccountTransactionRepository repo) {</span>
+<span class="fc" id="L18">        this.repo = repo;</span>
+<span class="fc" id="L19">    }</span>
+
+    @Override
+    public List&lt;AccountTransaction&gt; getAllAccountTransaction() {
+<span class="fc" id="L23">        List&lt;AccountTransaction&gt; transactions = new ArrayList&lt;&gt;();</span>
+        try {
+<span class="fc bfc" id="L25" title="All 2 branches covered.">            for (AccountTransaction accountTransaction : repo.findAll()) {</span>
+<span class="fc" id="L26">                transactions.add(new AccountTransaction(accountTransaction));</span>
+<span class="fc" id="L27">            }</span>
+<span class="nc" id="L28">        } catch (Exception e) {</span>
+<span class="nc" id="L29">            throw new RuntimeException(&quot;Unable to read form DB.&quot;, e);</span>
+<span class="fc" id="L30">        }</span>
+<span class="fc" id="L31">        return transactions;</span>
+    }
+
+    @Override
+    public AccountTransaction save(AccountTransaction accountTransaction) {
+        try {
+<span class="fc" id="L37">        return repo.save(accountTransaction);</span>
+<span class="nc" id="L38">        }catch (Exception e)</span>
+        {
+<span class="nc" id="L40">            throw new RuntimeException(&quot;Unable to save to the DB&quot;,e);</span>
+        }
+    }
+
+    @Override
+    public AccountTransactionDto getAccountTransactionByIdNativeQuery(Double id) {
+        try {
+<span class="fc" id="L47">           Long val  = Long.valueOf(id.intValue());</span>
+          // LOGGER.info(&quot;The id is {}&quot;,val);
+<span class="fc" id="L49">            AccountTransaction accountTransaction = repo.getAccountTransactionByIdNativeQuery(val);</span>
+<span class="fc" id="L50">            return new AccountTransactionDto(accountTransaction);</span>
+<span class="nc" id="L51">        } catch (Exception e) {</span>
+
+<span class="nc" id="L53">            throw new RuntimeException(&quot;Unable to save to DB.&quot;, e);</span>
+        }
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

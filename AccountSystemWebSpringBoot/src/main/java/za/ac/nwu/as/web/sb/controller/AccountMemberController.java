@@ -4,6 +4,8 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +27,7 @@ public class AccountMemberController {
     private final FetchAccountMemberFlow fetchAccountMemberFlow;
     private final CreateAccountMemberFlow createAccountMemberFlow;
     private final ModifyAccountMemberFlow modifyAccountMemberFlow;
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(AccountMemberController.class);
 
     public AccountMemberController(FetchAccountMemberFlow fetchAccountMemberFlow, CreateAccountMemberFlow createAccountMemberFlow, ModifyAccountMemberFlow modifyAccountMemberFlow) {
         this.fetchAccountMemberFlow = fetchAccountMemberFlow;
@@ -42,6 +44,7 @@ public class AccountMemberController {
             @ApiResponse(code = 500, message = "Internal Server Error", response = GeneralResponse.class)
     })
     public ResponseEntity<GeneralResponse<List<AccountMemberDto>>> getAll() {
+
         List<AccountMemberDto> accountMembers = fetchAccountMemberFlow.getAllAccountMembers();
         GeneralResponse<List<AccountMemberDto>> response = new GeneralResponse<> (true, accountMembers);
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -49,7 +52,7 @@ public class AccountMemberController {
     }
 
 
-    @PostMapping("New")
+    @PostMapping("new")
     @ApiOperation(value ="Create a new AccountMember.", notes ="Crates a new AccountMember in the DB.")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "The AccountMember was created successfully", response = GeneralResponse.class),

@@ -46,8 +46,10 @@ public class AccountTypeController {
             })
     public ResponseEntity&lt;GeneralResponse&lt;List&lt;AccountTypeDto&gt;&gt;&gt; getAll() {
 <span class="fc" id="L48">        List&lt;AccountTypeDto&gt; accountTypes = fetchAccountTypeFlow.getAllAccountTypes();</span>
-<span class="fc" id="L49">        GeneralResponse&lt;List&lt;AccountTypeDto&gt;&gt; response = new GeneralResponse&lt;&gt; (true, accountTypes);</span>
-<span class="fc" id="L50">        return new ResponseEntity&lt;&gt;(response, HttpStatus.OK);</span>
+
+<span class="fc" id="L50">        GeneralResponse&lt;List&lt;AccountTypeDto&gt;&gt; response = new GeneralResponse&lt;&gt; (true, accountTypes);</span>
+
+<span class="fc" id="L52">        return new ResponseEntity&lt;&gt;(response, HttpStatus.OK);</span>
 
     }
 
@@ -63,9 +65,9 @@ public class AccountTypeController {
                     @ApiParam(value = &quot;Request body to create a new AccountType&quot;,
                     required = true)
                     @RequestBody AccountTypeDto accountType){
-<span class="fc" id="L66">        AccountTypeDto accountTypeResponse = createAccountTypeFlow.create(accountType);</span>
-<span class="fc" id="L67">        GeneralResponse&lt;AccountTypeDto&gt; response = new GeneralResponse&lt;&gt;(true,accountTypeResponse);</span>
-<span class="fc" id="L68">        return new ResponseEntity&lt;&gt;(response,HttpStatus.CREATED);</span>
+<span class="fc" id="L68">        AccountTypeDto accountTypeResponse = createAccountTypeFlow.create(accountType);</span>
+<span class="fc" id="L69">        GeneralResponse&lt;AccountTypeDto&gt; response = new GeneralResponse&lt;&gt;(true,accountTypeResponse);</span>
+<span class="fc" id="L70">        return new ResponseEntity&lt;&gt;(response,HttpStatus.CREATED);</span>
     }
 
     @GetMapping(&quot;search/{mnemonic}&quot;)
@@ -82,9 +84,9 @@ public class AccountTypeController {
                     name = &quot;mnemonic&quot;,
                     required = true)
             @PathVariable(&quot;mnemonic&quot;) final String mnemonic) {
-<span class="fc" id="L85">        AccountTypeDto accountType = fetchAccountTypeFlow.getAccountTypeByMnemonic(mnemonic);</span>
-<span class="fc" id="L86">        GeneralResponse&lt;AccountTypeDto&gt; response = new GeneralResponse&lt;&gt;(true,accountType);</span>
-<span class="fc" id="L87">        return new ResponseEntity&lt;&gt;(response,HttpStatus.OK);</span>
+<span class="fc" id="L87">        AccountTypeDto accountType = fetchAccountTypeFlow.getAccountTypeByMnemonic(mnemonic);</span>
+<span class="fc" id="L88">        GeneralResponse&lt;AccountTypeDto&gt; response = new GeneralResponse&lt;&gt;(true,accountType);</span>
+<span class="fc" id="L89">        return new ResponseEntity&lt;&gt;(response,HttpStatus.OK);</span>
     }
 
 
@@ -102,9 +104,9 @@ public class AccountTypeController {
             name = &quot;mnemonic&quot;,
             required = true)
             @PathVariable(&quot;mnemonic&quot;) final String mnemonic){
-<span class="fc" id="L105">        AccountTypeDto accountType = modifyAccountTypeFlow.deleteAccountType(mnemonic);</span>
-<span class="fc" id="L106">        GeneralResponse&lt;AccountTypeDto&gt; response = new GeneralResponse&lt;&gt;(true,accountType);</span>
-<span class="fc" id="L107">        return new ResponseEntity&lt;&gt;(response,HttpStatus.OK);</span>
+<span class="fc" id="L107">        AccountTypeDto accountType = modifyAccountTypeFlow.deleteAccountType(mnemonic);</span>
+<span class="fc" id="L108">        GeneralResponse&lt;AccountTypeDto&gt; response = new GeneralResponse&lt;&gt;(true,accountType);</span>
+<span class="fc" id="L109">        return new ResponseEntity&lt;&gt;(response,HttpStatus.OK);</span>
     }
     @PutMapping(&quot;/update/{mnemonic}&quot;)
     @ApiOperation(value = &quot;Update the specified AccountType.&quot;,notes = &quot;Updates the AccountType corresponding to the given mnemonic.&quot;)
@@ -129,9 +131,9 @@ public class AccountTypeController {
             @RequestParam(value = &quot;newCreationDate&quot;,required = false)
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
             LocalDate newCreationDate) {
-<span class="fc" id="L132">        AccountTypeDto accountType = modifyAccountTypeFlow.updateAccountType(mnemonic,newAccountTypeName,newCreationDate);</span>
-<span class="fc" id="L133">        GeneralResponse&lt;AccountTypeDto&gt; response = new GeneralResponse&lt;&gt;(true,accountType);</span>
-<span class="fc" id="L134">        return new ResponseEntity&lt;&gt;(response,HttpStatus.OK);</span>
+<span class="fc" id="L134">        AccountTypeDto accountType = modifyAccountTypeFlow.updateAccountType(mnemonic,newAccountTypeName,newCreationDate);</span>
+<span class="fc" id="L135">        GeneralResponse&lt;AccountTypeDto&gt; response = new GeneralResponse&lt;&gt;(true,accountType);</span>
+<span class="fc" id="L136">        return new ResponseEntity&lt;&gt;(response,HttpStatus.OK);</span>
     }
 
 }
