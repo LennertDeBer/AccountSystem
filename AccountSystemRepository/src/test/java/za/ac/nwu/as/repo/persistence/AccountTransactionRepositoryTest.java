@@ -28,7 +28,11 @@ public class AccountTransactionRepositoryTest {
     public void tearDown() throws Exception {
     }
 
-
+@Test
+public void getAccountTransactionByIdNativeQueryD()
+{
+    Double val = accountTransactionRepository.getAccountTransactionByIdNativeQueryD(new Long(1));
+}
 
     @Test
     public void getAccountTransactionByIdNativeQuery() {
