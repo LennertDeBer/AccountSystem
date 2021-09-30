@@ -13,30 +13,34 @@ import za.ac.nwu.as.logic.flow.FetchAccountTypeFlow;
 import za.ac.nwu.as.translator.AccountTransactionTranslator;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 
 
 @Transactional
 @Component
 public class CreateAccountTransactionFlowImpl implements CreateAccountTransactionFlow {
 
-<span class="fc" id="L22">    private static final Logger LOGGER = LoggerFactory.getLogger(CreateAccountTransactionFlowImpl.class);</span>
+<span class="fc" id="L23">    private static final Logger LOGGER = LoggerFactory.getLogger(CreateAccountTransactionFlowImpl.class);</span>
 
     private final FetchAccountTypeFlow fetchAccountTypeFlow;
     private final FetchAccountMemberFlow fetchAccountMemberFlow;
     private final AccountTransactionTranslator accountTransactionTranslator;
 
-<span class="fc" id="L28">    public CreateAccountTransactionFlowImpl(FetchAccountTypeFlow fetchAccountTypeFlow, FetchAccountMemberFlow fetchAccountMemberFlow, AccountTransactionTranslator accountTransactionTranslator) {</span>
-<span class="fc" id="L29">        this.fetchAccountTypeFlow = fetchAccountTypeFlow;</span>
-<span class="fc" id="L30">        this.fetchAccountMemberFlow = fetchAccountMemberFlow;</span>
-<span class="fc" id="L31">        this.accountTransactionTranslator = accountTransactionTranslator;</span>
-<span class="fc" id="L32">    }</span>
+<span class="fc" id="L29">    public CreateAccountTransactionFlowImpl(FetchAccountTypeFlow fetchAccountTypeFlow, FetchAccountMemberFlow fetchAccountMemberFlow, AccountTransactionTranslator accountTransactionTranslator) {</span>
+<span class="fc" id="L30">        this.fetchAccountTypeFlow = fetchAccountTypeFlow;</span>
+<span class="fc" id="L31">        this.fetchAccountMemberFlow = fetchAccountMemberFlow;</span>
+<span class="fc" id="L32">        this.accountTransactionTranslator = accountTransactionTranslator;</span>
+<span class="fc" id="L33">    }</span>
 
     @Override
     public AccountTransactionDto create(AccountTransactionDto accountTransactionDto) {
         //LOGGER.warn(&quot;The input object was {}&quot;,accountTransactionDto);
-<span class="fc" id="L37">        LOGGER.info(&quot;The input object was {}&quot;, accountTransactionDto);</span>
+<span class="fc" id="L38">        LOGGER.info(&quot;The input object was {}&quot;, accountTransactionDto);</span>
 
-
+<span class="pc bpc" id="L40" title="1 of 2 branches missed.">        if(null==accountTransactionDto.getTransactionDate())</span>
+        {
+<span class="nc" id="L42">            accountTransactionDto.setTransactionDate(LocalDate.now());</span>
+        }
         //AccountTransactionDto.setTransactionId(new Long(50L));
 
         //Long transactionId, String accountTypeMnemonic, Long typeId, String accountMemberUsername, Long memberId, Double amount, LocalDate transactionDate
@@ -45,16 +49,16 @@ public class CreateAccountTransactionFlowImpl implements CreateAccountTransactio
 
 
       // Discovery code for method
-<span class="fc" id="L48">        AccountType accountType = fetchAccountTypeFlow.getAccountTypeDbEntityByMnemonic(accountTransactionDto.getAccountTypeMnemonic());</span>
-<span class="fc" id="L49">        AccountMember accountMember = fetchAccountMemberFlow.getAccountMemberDbEntityByUsername(accountTransactionDto.getAccountMemberUsername());</span>
+<span class="fc" id="L52">        AccountType accountType = fetchAccountTypeFlow.getAccountTypeDbEntityByMnemonic(accountTransactionDto.getAccountTypeMnemonic());</span>
+<span class="fc" id="L53">        AccountMember accountMember = fetchAccountMemberFlow.getAccountMemberDbEntityByUsername(accountTransactionDto.getAccountMemberUsername());</span>
 
        // if(LOGGER.isInfoEnabled()) {
        //     LOGGER.info(&quot;Got AccountType for {} and the AccountTypeId is {}&quot;, accountTransactionDto.getAccountTypeMnemonic(), accountType.getAccountTypeID());
         //    LOGGER.info(&quot;Got AccountMember for  {} and the AccountMemberId is {}&quot;, accountTransactionDto.getAccountMemberUsername(), accountMember.getMemberID());
        // }
-<span class="fc" id="L55">        AccountTransaction accountTransaction = accountTransactionDto.buildAccountTransaction(accountType, accountMember);</span>
+<span class="fc" id="L59">        AccountTransaction accountTransaction = accountTransactionDto.buildAccountTransaction(accountType, accountMember);</span>
 
-<span class="fc" id="L57">        AccountTransaction createAccountTransaction = accountTransactionTranslator.save(accountTransaction);</span>
+<span class="fc" id="L61">        AccountTransaction createAccountTransaction = accountTransactionTranslator.save(accountTransaction);</span>
         //AccountTransaction createAccountTransaction = accountTransactionTranslator.save(at);
 
       /*  if(null != accountTransactionDto.getDetails())
@@ -64,10 +68,10 @@ public class CreateAccountTransactionFlowImpl implements CreateAccountTransactio
            accountTransactionDetailsTranslator.save(accountTransactionDetails);
         }*/
 
-<span class="fc" id="L67">        AccountTransactionDto result =new AccountTransactionDto(createAccountTransaction);</span>
+<span class="fc" id="L71">        AccountTransactionDto result =new AccountTransactionDto(createAccountTransaction);</span>
        // LOGGER.warn(&quot;The return object is {}&quot;,result);
-<span class="fc" id="L69">        LOGGER.info(&quot;The return object is {}&quot;,result);</span>
-<span class="fc" id="L70">        return result;</span>
+<span class="fc" id="L73">        LOGGER.info(&quot;The return object is {}&quot;,result);</span>
+<span class="fc" id="L74">        return result;</span>
     }
 
    /* @Override

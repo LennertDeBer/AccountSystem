@@ -13,4 +13,6 @@ public interface AccountTransactionTranslator {
     AccountTransaction save(AccountTransaction accountTransaction);
 
     AccountTransactionDto getAccountTransactionByIdNativeQuery(Double id);
+
+    Double getMemberBalance(Double id);
 }

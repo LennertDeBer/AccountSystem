@@ -2,7 +2,6 @@ za\ac\nwu\as\logic\flow\impl\acmeb\FetchAccountMemberFlowImpl.class
 za\ac\nwu\as\logic\flow\impl\acty\FetchAccountTypeFlowImpl.class
 za\ac\nwu\as\logic\flow\CreateAccountMemberFlow.class
 za\ac\nwu\as\logic\flow\CreateAccountTransactionFlow.class
-za\ac\nwu\as\logic\flow\ModifyAccountMemberFlow.class
 za\ac\nwu\as\logic\flow\FetchAccountTypeFlow.class
 za\ac\nwu\as\logic\flow\impl\acty\ModifyAccountTypeFlowImpl.class
 za\ac\nwu\as\logic\flow\impl\acty\CreateAccountTypeFlowImpl.class
@@ -12,7 +11,6 @@ za\ac\nwu\as\logic\flow\impl\acmeb\CreateAccountMemberFlowImpl.class
 za\ac\nwu\as\logic\flow\FetchAccountMemberFlow.class
 za\ac\nwu\as\logic\flow\impl\Modulo.class
 za\ac\nwu\as\logic\flow\ModifyAccountTypeFlow.class
-za\ac\nwu\as\logic\flow\impl\acmeb\ModifyAccountMemberFlowImpl.class
 za\ac\nwu\as\logic\flow\impl\actx\CreateAccountTransactionFlowImpl.class
 za\ac\nwu\as\logic\config\LogicConfig.class
 za\ac\nwu\as\logic\flow\impl\actx\FetchAccountTransactionFlowImpl.class

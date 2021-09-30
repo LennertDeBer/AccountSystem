@@ -54,6 +54,19 @@ public class AccountTransactionTranslatorImpl implements AccountTransactionTrans
         }
     }
 
+    @Override
+    public Double getMemberBalance(Double id) {
+        try {
+<span class="fc" id="L60">            Long val  = Long.valueOf(id.intValue());</span>
+            // LOGGER.info(&quot;The id is {}&quot;,val);
+<span class="fc" id="L62">            Double accountTransaction = repo.getAccountTransactionByIdNativeQueryD(val);</span>
+<span class="fc" id="L63">            return accountTransaction;</span>
+<span class="fc" id="L64">        } catch (Exception e) {</span>
+
+<span class="fc" id="L66">            throw new RuntimeException(&quot;Unable to save to DB.&quot;, e);</span>
+        }
+    }
+
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

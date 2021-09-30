@@ -82,7 +82,7 @@ public class CreateAccountTransactionFlowImplTest {
 
 
         AccountType accountType = new AccountType(Long.valueOf(1),"MILES", "Miles", LocalDate.parse("2021-09-01"));
-        AccountMember members = new AccountMember(Long.valueOf(1),"MIKE", 50.50);
+        AccountMember members = new AccountMember(Long.valueOf(1),"MIKE");
 
 
         AccountTransactionDto accountTransactionRe = new AccountTransactionDto(Long.valueOf(1),"MILES",Long.valueOf(1),"MIKE",Long.valueOf(1),30.55, LocalDate.parse("2021-01-01"));

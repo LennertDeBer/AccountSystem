@@ -6,7 +6,6 @@ import za.ac.nwu.as.domain.persistence.AccountMember;
 import za.ac.nwu.as.repo.persistence.AccountMemberRepository;
 import za.ac.nwu.as.translator.AccountMemberTranslator;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,88 +13,47 @@ import java.util.List;
 public class AccountMemberTranslatorImpl implements AccountMemberTranslator {
     private final AccountMemberRepository accountMemberRepository;
 
-<span class="fc" id="L17">    public AccountMemberTranslatorImpl(AccountMemberRepository accountMemberRepository) {</span>
-<span class="fc" id="L18">        this.accountMemberRepository = accountMemberRepository;</span>
-<span class="fc" id="L19">    }</span>
+<span class="fc" id="L16">    public AccountMemberTranslatorImpl(AccountMemberRepository accountMemberRepository) {</span>
+<span class="fc" id="L17">        this.accountMemberRepository = accountMemberRepository;</span>
+<span class="fc" id="L18">    }</span>
 
     @Override
     public AccountMemberDto create(AccountMemberDto accountMemberDto) {
         try {
-<span class="fc" id="L24">            AccountMember accountMember = accountMemberRepository.save(accountMemberDto.getAccountMember());</span>
-<span class="fc" id="L25">            return new AccountMemberDto(accountMember);</span>
-<span class="fc" id="L26">        } catch (Exception e) {</span>
-<span class="fc" id="L27">            throw new RuntimeException(&quot;Unable to save to DB.&quot;, e);</span>
+<span class="fc" id="L23">            AccountMember accountMember = accountMemberRepository.save(accountMemberDto.getAccountMember());</span>
+<span class="fc" id="L24">            return new AccountMemberDto(accountMember);</span>
+<span class="fc" id="L25">        } catch (Exception e) {</span>
+<span class="fc" id="L26">            throw new RuntimeException(&quot;Unable to save to DB.&quot;, e);</span>
         }
     }
 
     @Override
     public List&lt;AccountMemberDto&gt; getAllAccountMembers() {
-<span class="fc" id="L33">        List&lt;AccountMemberDto&gt; accountMemberDtos = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L32">        List&lt;AccountMemberDto&gt; accountMemberDtos = new ArrayList&lt;&gt;();</span>
         try {
-<span class="fc bfc" id="L35" title="All 2 branches covered.">            for (AccountMember accountMember : accountMemberRepository.findAll()) {</span>
-<span class="fc" id="L36">                accountMemberDtos.add(new AccountMemberDto(accountMember));</span>
-<span class="fc" id="L37">            }</span>
-<span class="nc" id="L38">        } catch (Exception e) {</span>
-<span class="nc" id="L39">            throw new RuntimeException(&quot;Unable to read form DB.&quot;, e);</span>
-<span class="fc" id="L40">        }</span>
-<span class="fc" id="L41">        return accountMemberDtos;</span>
-    }
-
-
-
-
-    @Override
-    public AccountMemberDto increaseAccountMemberBalance(String userName, Double amount, LocalDate now) {
-        try {
-<span class="fc" id="L50">            AccountMember accountMember = accountMemberRepository.getAccountMemberByUsernameNativeQuery(userName);</span>
-
-<span class="fc" id="L52">            accountMember.setAccountBalance((accountMember.getAccountBalance()+amount));</span>
-
-
-            /* set the date for the transaction inside the AccountTransaction.
-
-            AccountMember accountMember = accountMemberRepository.getAccountMemberByUsernameNativeQuery(userName);
-
-            accountMember.setAccountTypeName(newAccountTypeName);
-
-*
-*
-* */
-<span class="fc" id="L64">            return new AccountMemberDto(accountMember);</span>
-<span class="fc" id="L65">        } catch (Exception e) {</span>
-
-<span class="fc" id="L67">            throw new RuntimeException(&quot;Unable to save to DB.&quot;, e);</span>
-        }
+<span class="fc bfc" id="L34" title="All 2 branches covered.">            for (AccountMember accountMember : accountMemberRepository.findAll()) {</span>
+<span class="fc" id="L35">                accountMemberDtos.add(new AccountMemberDto(accountMember));</span>
+<span class="fc" id="L36">            }</span>
+<span class="nc" id="L37">        } catch (Exception e) {</span>
+<span class="nc" id="L38">            throw new RuntimeException(&quot;Unable to read form DB.&quot;, e);</span>
+<span class="fc" id="L39">        }</span>
+<span class="fc" id="L40">        return accountMemberDtos;</span>
     }
 
     @Override
     public AccountMemberDto getAccountMemberByUsernameNativeQuery(String userName) {
-        try {
-<span class="fc" id="L74">            AccountMember accountMember = accountMemberRepository.getAccountMemberByUsernameNativeQuery(userName);</span>
-<span class="fc" id="L75">            return new AccountMemberDto(accountMember);</span>
-<span class="nc" id="L76">        } catch (Exception e) {</span>
-
-<span class="nc" id="L78">            throw new RuntimeException(&quot;Unable to retrieve from DB.&quot;, e);</span>
-        }
-    }
-
-    @Override
-    public AccountMemberDto decreaseAccountMemberBalance(String userName, Double amount, LocalDate newCreationDate) {
 
         try {
+<span class="fc" id="L47">            AccountMember accountMember = accountMemberRepository.getAccountMemberByUsernameNativeQuery(userName);</span>
+<span class="fc" id="L48">            AccountMemberDto accountMemberDtos = new AccountMemberDto(accountMember);</span>
+<span class="fc" id="L49">            return accountMemberDtos;</span>
 
-<span class="fc" id="L87">            AccountMember accountMember = accountMemberRepository.getAccountMemberByUsernameNativeQuery(userName);</span>
-
-
-<span class="fc" id="L90">            accountMember.setAccountBalance((accountMember.getAccountBalance() - amount));</span>
-<span class="fc" id="L91">            return new AccountMemberDto(accountMember);</span>
-
-
-
-<span class="fc" id="L95">        } catch (Exception e) {</span>
-
-<span class="fc" id="L97">            throw new RuntimeException(&quot;Unable to save to DB.&quot;, e);</span>
+<span class="nc" id="L51">        } catch (Exception e) {</span>
+<span class="nc" id="L52">            throw new RuntimeException(&quot;Unable to read form DB.&quot;, e);</span>
         }
+
     }
+
+
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

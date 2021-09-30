@@ -36,9 +36,9 @@ public class FetchAccountMemberFlowImplTest {
 
     @Test
     public void getAllAccountMembers() {
-        String expectedResponse = "[AccountMemberDto{memberId=1,  memberUsername='MIKE', accountBalance=50.50}]";
+        String expectedResponse = "[AccountMemberDto{memberId=1,  memberUsername='MIKE'}]";
         List<AccountMemberDto> accountMembers = new ArrayList<>();
-        accountMembers.add(new AccountMemberDto(Long.valueOf(1),"MIKE",50.50));
+        accountMembers.add(new AccountMemberDto(Long.valueOf(1),"MIKE"));
         when(translator.getAllAccountMembers()).thenReturn(accountMembers);
         List<AccountMemberDto> result  = flow.getAllAccountMembers();
         assertNotNull(result);
@@ -51,8 +51,8 @@ public class FetchAccountMemberFlowImplTest {
 
     @Test
     public void getAccountMemberByUsername() {
-        String expectedResponse = "AccountMemberDto{memberId=1,  memberUsername='MIKE', accountBalance=50.50}";
-        AccountMemberDto member = new AccountMemberDto(Long.valueOf(1),"MIKE", 50.50);
+        String expectedResponse = "AccountMemberDto{memberId=1,  memberUsername='MIKE'}";
+        AccountMemberDto member = new AccountMemberDto(Long.valueOf(1),"MIKE");
 
 
         when(translator.getAccountMemberByUsernameNativeQuery("MIKE")).thenReturn(member);
@@ -67,8 +67,8 @@ public class FetchAccountMemberFlowImplTest {
 
     @Test
     public void getAccountMemberDbEntityByUsername() {
-        String expectedResponse = "AccountMember{memberID=1, memberUsername='MIKE', accountBalance=50.50}";
-        AccountMemberDto member = new AccountMemberDto(Long.valueOf(1),"MIKE", 50.50);
+        String expectedResponse = "AccountMember{memberID=1, memberUsername='MIKE'}";
+        AccountMemberDto member = new AccountMemberDto(Long.valueOf(1),"MIKE");
 
 
         when(translator.getAccountMemberByUsernameNativeQuery(anyString())).thenReturn(member);

@@ -32,13 +32,13 @@ public class CreateAccountMemberFlowImplTest {
 
     @Test
     public void create() {
-        String accountTypeToBeCreated ="AccountMemberDto{memberId=1,  memberUsername='MIKE', accountBalance=50.50}";
+        String accountTypeToBeCreated ="AccountMemberDto{memberId=1,  memberUsername='MIKE'}";
         String expectedResponse ="{\"successful\":true,\"payload\":"+
-                "{\"memberId\":1,\"memberUsername\":\"MIKE\",\"accountBalance\":50.5}}";
+                "{\"memberId\":1,\"memberUsername\":\"MIKE\"}}";
 
 
 
-        AccountMemberDto members = new AccountMemberDto(Long.valueOf(1),"MIKE", 50.50);
+        AccountMemberDto members = new AccountMemberDto(Long.valueOf(1),"MIKE");
 
 
         when(translator.create(any(AccountMemberDto.class))).thenReturn(members);

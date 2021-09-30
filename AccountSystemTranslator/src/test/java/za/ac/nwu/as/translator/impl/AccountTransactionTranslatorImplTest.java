@@ -37,10 +37,10 @@ public class AccountTransactionTranslatorImplTest {
     }
     @Test
     public void getAllAccountTransaction() {
-        String expectedResponse = "[AccountTransaction{transactionId=1, accountType=AccountType{accountTypeID=1, mnemonic='MILES', accountTypeName='Miles', creationDate=2021-09-01}, memberId=AccountMember{memberID=1, memberUsername='MIKE', accountBalance=50.50}, amount=30.55, transactionDate=2021-01-01}]";
+        String expectedResponse = "[AccountTransaction{transactionId=1, accountType=AccountType{accountTypeID=1, mnemonic='MILES', accountTypeName='Miles', creationDate=2021-09-01}, memberId=AccountMember{memberID=1, memberUsername='MIKE'}, amount=30.55, transactionDate=2021-01-01}]";
 
         AccountType accountType = new AccountType(Long.valueOf(1),"MILES", "Miles", LocalDate.parse("2021-09-01"));
-        AccountMember members = new AccountMember(Long.valueOf(1),"MIKE", 50.50);
+        AccountMember members = new AccountMember(Long.valueOf(1),"MIKE");
 
 
         List<AccountTransaction> accountTransactions = new ArrayList<>();
@@ -58,11 +58,11 @@ public class AccountTransactionTranslatorImplTest {
     @Test
     public void save() {
         String accountTransactionToBeCreated ="{\"transactionId\":1,\"accountTypeMnemonic\":\"MILES\",\"typeId\":1,\"accountMemberUsername\":\"MIKE\",\"memberId\":1,\"amount\":30.55,\"transactionDate\":[2021,1,1]}}";
-        String expectedResponse = "AccountTransaction{transactionId=1, accountType=AccountType{accountTypeID=1, mnemonic='MILES', accountTypeName='Miles', creationDate=2021-09-01}, memberId=AccountMember{memberID=1, memberUsername='MIKE', accountBalance=50.50}, amount=30.55, transactionDate=2021-01-01}";
+        String expectedResponse = "AccountTransaction{transactionId=1, accountType=AccountType{accountTypeID=1, mnemonic='MILES', accountTypeName='Miles', creationDate=2021-09-01}, memberId=AccountMember{memberID=1, memberUsername='MIKE'}, amount=30.55, transactionDate=2021-01-01}";
 
 
         AccountType accountType = new AccountType(Long.valueOf(1),"MILES", "Miles", LocalDate.parse("2021-09-01"));
-        AccountMember members = new AccountMember(Long.valueOf(1),"MIKE", 50.50);
+        AccountMember members = new AccountMember(Long.valueOf(1),"MIKE");
 
 
         AccountTransactionDto accountTransactionRe = new AccountTransactionDto(Long.valueOf(1),accountType,members,30.55, LocalDate.parse("2021-01-01"));
@@ -79,6 +79,10 @@ public class AccountTransactionTranslatorImplTest {
     }
 
 
+
+
+
+
  
     @Test
     public void getAccountTransactionByIdNativeQuery() {
@@ -87,7 +91,7 @@ public class AccountTransactionTranslatorImplTest {
 
 
         AccountType accountType = new AccountType(Long.valueOf(1),"MILES", "Miles", LocalDate.parse("2021-09-01"));
-        AccountMember members = new AccountMember(Long.valueOf(1),"MIKE", 50.50);
+        AccountMember members = new AccountMember(Long.valueOf(1),"MIKE");
 
         AccountTransaction accountTransaction = new AccountTransaction(Long.valueOf(1),accountType,members,30.55, LocalDate.parse("2021-01-01"));
 
@@ -109,7 +113,7 @@ public class AccountTransactionTranslatorImplTest {
 
 
         AccountType accountType = new AccountType(Long.valueOf(1),"MILES", "Miles", LocalDate.parse("2021-09-01"));
-        AccountMember members = new AccountMember(Long.valueOf(1),"MIKE", 50.50);
+        AccountMember members = new AccountMember(Long.valueOf(1),"MIKE");
 
         AccountTransaction accountTransaction = new AccountTransaction(Long.valueOf(1),accountType,members,30.55, LocalDate.parse("2021-01-01"));
 
@@ -121,6 +125,47 @@ public class AccountTransactionTranslatorImplTest {
 
 
        // verify(repo,times(1)).getAccountTransactionByIdNativeQuery(anyLong());
+        String val = result.toString();
+        assertEquals(expectedResponse,val);
+    }
+
+    @Test
+    public void getMemberBalance() {
+        String expectedResponse = "101.5";
+
+
+        Double va =101.5;
+
+        when(repo.getAccountTransactionByIdNativeQueryD(anyLong())).thenReturn(va);
+
+        Double result = translator.getMemberBalance(1.0);
+        assertNotNull(result);
+
+
+        verify(repo, times(1)).getAccountTransactionByIdNativeQueryD(anyLong());
+        String val = result.toString();
+        assertEquals(expectedResponse, val);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void getMemberBalanceError() {
+        String expectedResponse = "AccountTransactionDto{transactionId=1, accountTypeMnemonic='MILES', typeId=1, accountMemberUsername='MIKE', memberId=1, amount=30.55, transactionDate=2021-01-01}";
+
+
+
+        AccountType accountType = new AccountType(Long.valueOf(1),"MILES", "Miles", LocalDate.parse("2021-09-01"));
+        AccountMember members = new AccountMember(Long.valueOf(1),"MIKE");
+
+        AccountTransaction accountTransaction = new AccountTransaction(Long.valueOf(1),accountType,members,30.55, LocalDate.parse("2021-01-01"));
+
+
+        // when(repo.getAccountTransactionByIdNativeQuery(isNull())).thenThrow(RuntimeException.class);
+
+        Double result  = translator.getMemberBalance(null);
+        assertNotNull(result);
+
+
+        // verify(repo,times(1)).getAccountTransactionByIdNativeQuery(anyLong());
         String val = result.toString();
         assertEquals(expectedResponse,val);
     }

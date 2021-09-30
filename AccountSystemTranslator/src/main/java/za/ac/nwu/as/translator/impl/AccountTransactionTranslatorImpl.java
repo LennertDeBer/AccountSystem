@@ -54,5 +54,18 @@ public class AccountTransactionTranslatorImpl implements AccountTransactionTrans
         }
     }
 
+    @Override
+    public Double getMemberBalance(Double id) {
+        try {
+            Long val  = Long.valueOf(id.intValue());
+            // LOGGER.info("The id is {}",val);
+            Double accountTransaction = repo.getAccountTransactionByIdNativeQueryD(val);
+            return accountTransaction;
+        } catch (Exception e) {
+
+            throw new RuntimeException("Unable to save to DB.", e);
+        }
+    }
+
 
 }

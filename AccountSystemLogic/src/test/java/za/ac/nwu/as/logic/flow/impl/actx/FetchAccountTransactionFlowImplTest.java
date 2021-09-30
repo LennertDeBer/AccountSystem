@@ -75,4 +75,25 @@ public class FetchAccountTransactionFlowImplTest {
 
 
     }
+
+    @Test
+    public void getMemberBalance() {
+
+
+        String expectedResponse = "101.5";
+
+
+        Double va =101.5;
+
+        when(translator.getMemberBalance(anyDouble())).thenReturn(va);
+
+        Double result = flow.getMemberBalance(1.0);
+        assertNotNull(result);
+
+
+        verify(translator, times(1)).getMemberBalance(anyDouble());
+        String val = result.toString();
+        assertEquals(expectedResponse, val);
+
+    }
 }

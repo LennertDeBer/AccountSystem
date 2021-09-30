@@ -11,11 +11,11 @@ import za.ac.nwu.as.domain.dto.AccountMemberDto;
 import za.ac.nwu.as.domain.persistence.AccountMember;
 import za.ac.nwu.as.repo.persistence.AccountMemberRepository;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -36,12 +36,12 @@ public class AccountMemberTranslatorImplTest {
 
     @Test
     public void create() {
-            String accountTypeToBeCreated = "AccountMemberDto{memberId=1,  memberUsername='MIKE', accountBalance=50.50}";
+            String accountTypeToBeCreated = "AccountMemberDto{memberId=1,  memberUsername='MIKE'}";
             String expectedResponse = "{\"successful\":true,\"payload\":" +
-                    "{\"memberId\":1,\"memberUsername\":\"MIKE\",\"accountBalance\":50.5}}";
+                    "{\"memberId\":1,\"memberUsername\":\"MIKE\"}}";
 
 
-            AccountMember members = new AccountMember(Long.valueOf(1), "MIKE", 50.50);
+            AccountMember members = new AccountMember(Long.valueOf(1), "MIKE");
 
 
             when(repo.save(any(AccountMember.class))).thenReturn(members);
@@ -58,12 +58,12 @@ public class AccountMemberTranslatorImplTest {
 
     @Test(expected = RuntimeException.class)
     public void createError() {
-        String accountTypeToBeCreated = "AccountMemberDto{memberId=1,  memberUsername='MIKE', accountBalance=50.50}";
+        String accountTypeToBeCreated = "AccountMemberDto{memberId=1,  memberUsername='MIKE'}";
         String expectedResponse = "{\"successful\":true,\"payload\":" +
-                "{\"memberId\":1,\"memberUsername\":\"MIKE\",\"accountBalance\":50.5}}";
+                "{\"memberId\":1,\"memberUsername\":\"MIKE\"}}";
 
 
-        AccountMember members = new AccountMember(Long.valueOf(1), "MIKE", 50.50);
+        AccountMember members = new AccountMember(Long.valueOf(1), "MIKE");
 
 
        // when(repo.save(any(AccountMember.class))).thenReturn(members);
@@ -80,9 +80,9 @@ public class AccountMemberTranslatorImplTest {
 
     @Test
     public void getAllAccountMembers() {
-        String expectedResponse = "[AccountMemberDto{memberId=1,  memberUsername='MIKE', accountBalance=50.50}]";
+        String expectedResponse = "[AccountMemberDto{memberId=1,  memberUsername='MIKE'}]";
         List<AccountMember> accountMembers = new ArrayList<>();
-        accountMembers.add(new AccountMember(Long.valueOf(1),"MIKE",50.50));
+        accountMembers.add(new AccountMember(Long.valueOf(1),"MIKE"));
         when(repo.findAll()).thenReturn(accountMembers);
         List<AccountMemberDto> result  = translator.getAllAccountMembers();
         assertNotNull(result);
@@ -93,49 +93,13 @@ public class AccountMemberTranslatorImplTest {
                 result.toString());
     }
 
-    @Test
-    public void increaseAccountMemberBalance() {
-        String expectedResponse = "AccountMemberDto{memberId=1,  memberUsername='MIKE', accountBalance=71.55}";
 
-        AccountMember member = new AccountMember(Long.valueOf(1),"MIKE", 61.00);
-
-        when(repo.getAccountMemberByUsernameNativeQuery(anyString())).thenReturn(member);
-        AccountMemberDto result  = translator.increaseAccountMemberBalance(member.getMemberUsername(),10.55,LocalDate.parse("2021-09-01"));
-        assertNotNull(result);
-
-
-        verify(repo,
-                atLeastOnce()).getAccountMemberByUsernameNativeQuery(anyString());
-        String val = result.toString();
-        assertEquals(expectedResponse,
-                result.toString());
-    }
-
-
-    @Test(expected = RuntimeException.class)
-    public void increaseAccountMemberBalanceError() {
-        String expectedResponse = "AccountMemberDto{memberId=1,  memberUsername='MIKE', accountBalance=71.55}";
-
-        AccountMember member = new AccountMember(Long.valueOf(1),"MIKE", 61.00);
-
-       // when(repo.getAccountMemberByUsernameNativeQuery(anyString())).thenReturn(member);
-        AccountMemberDto result  = translator.increaseAccountMemberBalance(member.getMemberUsername(),null,LocalDate.parse("2021-09-01"));
-        assertNotNull(result);
-
-
-       /* verify(repo,
-                atLeastOnce()).getAccountMemberByUsernameNativeQuery(anyString());
-        */
-        String val = result.toString();
-        assertEquals(expectedResponse,
-                result.toString());
-    }
 
 
     @Test
     public void getAccountMemberByUsernameNativeQuery() {
-        String expectedResponse = "AccountMemberDto{memberId=1,  memberUsername='MIKE', accountBalance=50.50}";
-        AccountMember member = new AccountMember(Long.valueOf(1),"MIKE", 50.50);
+        String expectedResponse = "AccountMemberDto{memberId=1,  memberUsername='MIKE'}";
+        AccountMember member = new AccountMember(Long.valueOf(1),"MIKE");
 
 
         when(repo.getAccountMemberByUsernameNativeQuery("MIKE")).thenReturn(member);
@@ -148,40 +112,5 @@ public class AccountMemberTranslatorImplTest {
         assertEquals(expectedResponse,result.toString());
     }
 
-    @Test
-    public void decreaseAccountMemberBalance() {
 
-        AccountMember member = new AccountMember(Long.valueOf(1),"MIKE", 20.50);
-
-        when(repo.getAccountMemberByUsernameNativeQuery(anyString())).thenReturn(member);
-            String expectedResponse = "AccountMemberDto{memberId=1,  memberUsername='MIKE', accountBalance=9.95}";
-            AccountMemberDto result = translator.decreaseAccountMemberBalance(member.getMemberUsername(), 10.55, LocalDate.parse("2021-09-01"));
-            assertNotNull(result);
-
-
-            verify(repo,
-                    times(1)).getAccountMemberByUsernameNativeQuery(anyString());
-            String val = result.toString();
-            assertEquals(expectedResponse,
-                    result.toString());
-    }
-
-
-    @Test(expected = RuntimeException.class)
-    public void decreaseAccountMemberBalanceError() {
-
-        AccountMember member = new AccountMember(Long.valueOf(1),"MIKE", 20.50);
-
-        //when(repo.getAccountMemberByUsernameNativeQuery(anyString())).thenReturn(member);
-        String expectedResponse = "AccountMemberDto{memberId=1,  memberUsername='MIKE', accountBalance=9.95}";
-        AccountMemberDto result = translator.decreaseAccountMemberBalance(member.getMemberUsername(), null, LocalDate.parse("2021-09-01"));
-        assertNotNull(result);
-
-
-        /*verify(repo,
-                times(1)).getAccountMemberByUsernameNativeQuery(anyString());
-        */String val = result.toString();
-        assertEquals(expectedResponse,
-                result.toString());
-    }
 }

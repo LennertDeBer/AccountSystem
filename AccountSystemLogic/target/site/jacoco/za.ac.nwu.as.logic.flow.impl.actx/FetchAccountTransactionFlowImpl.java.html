@@ -34,6 +34,11 @@ public class FetchAccountTransactionFlowImpl implements FetchAccountTransactionF
 <span class="fc" id="L34">        return accountTransactionTranslator.getAccountTransactionByIdNativeQuery(id);</span>
     }
 
+    @Override
+    public Double getMemberBalance(Double id) {
+<span class="fc" id="L39">        return accountTransactionTranslator.getMemberBalance(id);</span>
+    }
+
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

@@ -34,5 +34,10 @@ public class FetchAccountTransactionFlowImpl implements FetchAccountTransactionF
         return accountTransactionTranslator.getAccountTransactionByIdNativeQuery(id);
     }
 
+    @Override
+    public Double getMemberBalance(Double id) {
+        return accountTransactionTranslator.getMemberBalance(id);
+    }
+
 
 }

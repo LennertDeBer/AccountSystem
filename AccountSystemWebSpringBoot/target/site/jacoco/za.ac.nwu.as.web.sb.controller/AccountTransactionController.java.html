@@ -136,6 +136,24 @@ public class AccountTransactionController {
 <span class="fc" id="L136">        AccountTransactionDto accountTransactions = fetchAccountTransactionFlow.getAccountTransactionById(id);</span>
 <span class="fc" id="L137">        GeneralResponse&lt;AccountTransactionDto&gt; response = new GeneralResponse&lt;&gt; (true, accountTransactions);</span>
 <span class="fc" id="L138">        return new ResponseEntity&lt;&gt;(response, HttpStatus.OK);</span>
+    }
+    @GetMapping(&quot;view_balance/{id}&quot;)
+    @ApiOperation(value = &quot;Gets all the configured Account types.&quot;, notes = &quot;Returns a list of account types&quot;)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = &quot;Account types returned&quot;, response = GeneralResponse.class),
+            @ApiResponse(code = 400, message = &quot;Bad Request&quot;, response = GeneralResponse.class),
+            @ApiResponse(code = 404, message = &quot;Not found&quot;, response = GeneralResponse.class),
+            @ApiResponse(code = 500, message = &quot;Internal Server Error&quot;, response = GeneralResponse.class)
+    })
+    public ResponseEntity&lt;GeneralResponse&lt;Double&gt;&gt; getMemberBalance(
+            @ApiParam(value = &quot;The  id by which the AccountMember can be uniquely identified.&quot;,
+                    example = &quot;1&quot;,
+                    name = &quot;id&quot;,
+                    required = true)
+            @RequestParam(&quot;id&quot;) final Double id) {
+<span class="fc" id="L154">        Double balance = fetchAccountTransactionFlow.getMemberBalance(id);</span>
+<span class="fc" id="L155">        GeneralResponse&lt;Double&gt; response = new GeneralResponse&lt;&gt; (true, balance);</span>
+<span class="fc" id="L156">        return new ResponseEntity&lt;&gt;(response, HttpStatus.OK);</span>
 
     }
 }

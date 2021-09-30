@@ -2,10 +2,9 @@ GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_
 AccountSystemLogic,za.ac.nwu.as.logic.flow.impl.acty,FetchAccountTypeFlowImpl,0,27,0,0,0,9,0,5,0,5
 AccountSystemLogic,za.ac.nwu.as.logic.flow.impl.acty,CreateAccountTypeFlowImpl,0,20,1,1,0,7,1,2,0,2
 AccountSystemLogic,za.ac.nwu.as.logic.flow.impl.acty,ModifyAccountTypeFlowImpl,13,43,1,1,4,9,2,3,1,3
-AccountSystemLogic,za.ac.nwu.as.logic.flow.impl.actx,CreateAccountTransactionFlowImpl,0,53,0,0,0,14,0,3,0,3
-AccountSystemLogic,za.ac.nwu.as.logic.flow.impl.actx,FetchAccountTransactionFlowImpl,0,37,0,2,0,9,0,4,0,3
+AccountSystemLogic,za.ac.nwu.as.logic.flow.impl.actx,CreateAccountTransactionFlowImpl,3,57,1,1,1,15,1,3,0,3
+AccountSystemLogic,za.ac.nwu.as.logic.flow.impl.actx,FetchAccountTransactionFlowImpl,0,42,0,2,0,10,0,5,0,4
 AccountSystemLogic,za.ac.nwu.as.logic.flow.impl.acmeb,CreateAccountMemberFlowImpl,0,11,0,0,0,4,0,2,0,2
-AccountSystemLogic,za.ac.nwu.as.logic.flow.impl.acmeb,ModifyAccountMemberFlowImpl,9,45,2,4,2,11,2,4,0,3
 AccountSystemLogic,za.ac.nwu.as.logic.flow.impl.acmeb,FetchAccountMemberFlowImpl,0,25,0,0,0,8,0,4,0,4
 AccountSystemLogic,za.ac.nwu.as.logic.config,LogicConfig,3,0,0,0,1,0,1,0,1,0
 AccountSystemLogic,za.ac.nwu.as.logic.flow.impl,Modulo,0,15,0,2,0,4,0,3,0,2

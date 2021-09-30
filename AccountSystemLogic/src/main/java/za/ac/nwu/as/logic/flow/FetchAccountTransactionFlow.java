@@ -10,4 +10,6 @@ public interface FetchAccountTransactionFlow {
 
 
     AccountTransactionDto getAccountTransactionById(Double id);
+
+    Double getMemberBalance(Double id);
 }

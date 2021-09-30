@@ -16,13 +16,13 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import za.ac.nwu.as.domain.dto.AccountMemberDto;
 import za.ac.nwu.as.logic.flow.*;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -41,8 +41,7 @@ public class AccountMemberControllerTest {
     private FetchAccountMemberFlow fetchAccountMemberFlow;
    @Mock
     private CreateAccountMemberFlow createAccountMemberFlow;
-    @Mock
-    private ModifyAccountMemberFlow modifyAccountMemberFlow;
+
 
     private MockMvc mockMvc;
     @InjectMocks
@@ -60,9 +59,9 @@ public class AccountMemberControllerTest {
     @Test
     public void getAll() throws Exception {
         String expectedResponse = "{\"successful\":true,\"payload\":["+
-                "{\"memberId\":1,\"memberUsername\":\"MIKE\",\"accountBalance\":50.5}]}";
+                "{\"memberId\":1,\"memberUsername\":\"MIKE\"}]}";
         List<AccountMemberDto> accountMembers = new ArrayList<>();
-        accountMembers.add(new AccountMemberDto(Long.valueOf(1),"MIKE",50.50));
+        accountMembers.add(new AccountMemberDto(Long.valueOf(1),"MIKE"));
 
         when(fetchAccountMemberFlow.getAllAccountMembers()).thenReturn(accountMembers);
         MvcResult mvcResult = mockMvc.perform(get((String.format("%s/%s",ACCOUNT_TYPE_CONTROLLER_URL,"view/all")))
@@ -79,13 +78,13 @@ public class AccountMemberControllerTest {
 
     @Test
     public void create() throws Exception {
-        String accountTypeToBeCreated ="{\"memberId\":1,\"memberUsername\":\"MIKE\",\"accountBalance\":50.5}]}";
+        String accountTypeToBeCreated ="{\"memberId\":1,\"memberUsername\":\"MIKE\"}]}";
         String expectedResponse ="{\"successful\":true,\"payload\":"+
-                "{\"memberId\":1,\"memberUsername\":\"MIKE\",\"accountBalance\":50.5}}";
+                "{\"memberId\":1,\"memberUsername\":\"MIKE\"}}";
 
 
 
-        AccountMemberDto members = new AccountMemberDto(Long.valueOf(1),"MIKE", 50.50);
+        AccountMemberDto members = new AccountMemberDto(Long.valueOf(1),"MIKE");
 
         when(createAccountMemberFlow.create(members)).thenReturn(members);
         MvcResult mvcResult = mockMvc.perform(post((String.format("%s/%s",ACCOUNT_TYPE_CONTROLLER_URL,"new")))
@@ -105,10 +104,10 @@ public class AccountMemberControllerTest {
     @Test
     public void getAccountMember() throws Exception {
         String expectedResponse = "{\"successful\":true,\"payload\":"+
-                "{\"memberId\":1,\"memberUsername\":\"MIKE\",\"accountBalance\":50.5}}";
+                "{\"memberId\":1,\"memberUsername\":\"MIKE\"}}";
 
 
-        AccountMemberDto member = new AccountMemberDto(Long.valueOf(1),"MIKE", 50.50);
+        AccountMemberDto member = new AccountMemberDto(Long.valueOf(1),"MIKE");
 
 
 
@@ -125,178 +124,4 @@ public class AccountMemberControllerTest {
         assertEquals(expectedResponse,mvcResult.getResponse().getContentAsString());
     }
 
-    @Test
-    public void increaseAccountMemberBalance() throws Exception {
-       String expectedResponse = "{\"successful\":true,\"payload\":"+
-                "{\"memberId\":1,\"memberUsername\":\"MIKE\",\"accountBalance\":61.0}}";
-
-        AccountMemberDto  members = new AccountMemberDto(Long.valueOf(1),"MIKE", 61.0);
-
-  /*      AccountTypeDto accountTypes = new AccountTypeDto(Long.valueOf(1),"MILES", "Miles", LocalDate.parse("2020-01-01"));
-
-     //   AccountTypeDto accountTypes = new AccountTypeDto(Long.valueOf(1),"MILES", "Miles", LocalDate.parse("2020-01-01"));
-        AccountType accountType =accountTypes.getAccountType();
-        AccountMember member = members.getAccountMember();
-        when(createAccountMemberFlow.create(eq(members))).then(returnsFirstArg());
-        when(fetchAccountMemberFlow.getAccountMemberDbEntityByUsername(eq(member.getMemberUsername()))).thenReturn(member);
-        when(fetchAccountTypeFlow.getAccountTypeDbEntityByMnemonic(eq(accountType.getMnemonic()))).thenReturn(accountType);
-*/
-
-       /* when(modifyAccountMemberFlow.increaseAccountMemberBalance(anyString(),
-                anyDouble(), any(LocalDate.class))).thenReturn(members);
-        */when(modifyAccountMemberFlow.increaseAccountMemberBalance(anyString(),
-                anyDouble(), any(LocalDate.class))).thenReturn(members);
-        MvcResult mvcResult = mockMvc.perform(put((String.format("%s/%s",
-                        ACCOUNT_TYPE_CONTROLLER_URL, "increase/MIKE")))
-                        .param("amount", "10.5")
-                        .param("newCreationDate", "2021-04-01")
-                        .servletPath(APP_URL)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andReturn();
-
-
-        String val = mvcResult.getResponse().getContentAsString();
-
-
-        verify(modifyAccountMemberFlow,atLeastOnce()).increaseAccountMemberBalance(eq("MIKE"),eq(Double.parseDouble("10.5")),eq(LocalDate.parse("2021-04-01")));
-
-
-
-        assertEquals(expectedResponse,
-                mvcResult.getResponse().getContentAsString());
-    }
-
-
-    @Test
-    public void increaseAccountMemberBalanceWithNoOptionalDate() throws Exception {
-        String expectedResponse = "{\"successful\":true,\"payload\":"+
-                "{\"memberId\":1,\"memberUsername\":\"MIKE\",\"accountBalance\":61.0}}";
-
-        AccountMemberDto  member = new AccountMemberDto(Long.valueOf(1),"MIKE", 61.0);
-
-
-
-        when(modifyAccountMemberFlow.increaseAccountMemberBalance(anyString(),
-                anyDouble(),isNull())).thenReturn(member);
-
-        MvcResult mvcResult = mockMvc.perform(put((String.format("%s/%s",
-                        ACCOUNT_TYPE_CONTROLLER_URL, "increase/MIKE")))
-                        .param("amount", "10.5")
-                        .servletPath(APP_URL)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andReturn();
-
-
-        String val = mvcResult.getResponse().getContentAsString();
-
-
-        verify(modifyAccountMemberFlow,atLeastOnce()).increaseAccountMemberBalance(eq("MIKE"),eq(Double.parseDouble("10.5")),eq(null));
-
-
-
-        assertEquals(expectedResponse,
-                mvcResult.getResponse().getContentAsString());
-    }
-
-    @Test
-    public void increaseAccountMemberBalanceObitMandatory() throws Exception {
-        mockMvc.perform(put((String.format("%s/%s",
-                        ACCOUNT_TYPE_CONTROLLER_URL, "increase/MIKE")))
-                        .servletPath(APP_URL)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest())
-                .andReturn();
-
-        verify(modifyAccountMemberFlow, never()).increaseAccountMemberBalance(anyString(),anyDouble(), any(LocalDate.class));
-        verify(modifyAccountMemberFlow, never()).increaseAccountMemberBalance(anyString(), anyDouble(), isNull());
-    }
-
-    @Test
-    public void decreaseAccountMemberBalance() throws Exception {
-        String expectedResponse = "{\"successful\":true,\"payload\":"+
-                "{\"memberId\":1,\"memberUsername\":\"MIKE\",\"accountBalance\":50.5}}";
-
-        AccountMemberDto  member = new AccountMemberDto(Long.valueOf(1),"MIKE", 50.5);
-
-
-
-        when(modifyAccountMemberFlow.decreaseAccountMemberBalance(anyString(),
-                anyDouble(), any(LocalDate.class))).thenReturn(member);
-
-        MvcResult mvcResult = mockMvc.perform(put((String.format("%s/%s",
-                        ACCOUNT_TYPE_CONTROLLER_URL, "decrease/MIKE")))
-                        .param("amount", "10.5")
-                        .param("newCreationDate", "2021-04-01")
-                        .servletPath(APP_URL)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andReturn();
-
-
-        String val = mvcResult.getResponse().getContentAsString();
-
-
-        verify(modifyAccountMemberFlow,atLeastOnce()).decreaseAccountMemberBalance(eq("MIKE"),eq(Double.parseDouble("10.5")),eq(LocalDate.parse("2021-04-01")));
-
-
-
-        assertEquals(expectedResponse,
-                mvcResult.getResponse().getContentAsString());
-    }
-
-
-
-
-    @Test
-    public void decreaseAccountMemberBalanceWithNoOptionalDate() throws Exception {
-        String expectedResponse = "{\"successful\":true,\"payload\":"+
-                "{\"memberId\":1,\"memberUsername\":\"MIKE\",\"accountBalance\":50.5}}";
-
-        AccountMemberDto  member = new AccountMemberDto(Long.valueOf(1),"MIKE", 50.5);
-
-
-
-        when(modifyAccountMemberFlow.decreaseAccountMemberBalance(anyString(),
-                anyDouble(), isNull())).thenReturn(member);
-
-        MvcResult mvcResult = mockMvc.perform(put((String.format("%s/%s",
-                        ACCOUNT_TYPE_CONTROLLER_URL, "decrease/MIKE")))
-                        .param("amount", "10.5")
-                        .servletPath(APP_URL)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andReturn();
-
-
-        String val = mvcResult.getResponse().getContentAsString();
-
-
-        verify(modifyAccountMemberFlow,atLeastOnce()).decreaseAccountMemberBalance(eq("MIKE"),eq(Double.parseDouble("10.5")),eq(null));
-
-
-
-        assertEquals(expectedResponse,
-                mvcResult.getResponse().getContentAsString());
-    }
-
-    @Test
-    public void decreaseAccountMemberBalanceObitMandatory() throws Exception {
-        mockMvc.perform(put((String.format("%s/%s",
-                        ACCOUNT_TYPE_CONTROLLER_URL, "decrease/MIKE")))
-                        .servletPath(APP_URL)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest())
-                .andReturn();
-
-        verify(modifyAccountMemberFlow, never()).decreaseAccountMemberBalance(anyString(), anyDouble(), any(LocalDate.class));
-        verify(modifyAccountMemberFlow, never()).decreaseAccountMemberBalance(anyString(), anyDouble(), isNull());
-    }
 }

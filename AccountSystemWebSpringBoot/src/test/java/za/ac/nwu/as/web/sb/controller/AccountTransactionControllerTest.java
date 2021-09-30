@@ -132,6 +132,33 @@ public class AccountTransactionControllerTest {
         assertEquals(expectedResponse,mvcResult.getResponse().getContentAsString());
     }
 
+  /*  @Test
+    public void getAccountTransactionById() throws Exception {
+        String expectedResponse = "{\"successful\":true,\"payload\":{\"transactionId\":1,\"accountTypeMnemonic\":\"MILES\",\"typeId\":1,\"accountMemberUsername\":\"MIKE\",\"memberId\":1,\"amount\":30.55,\"transactionDate\":[2021,1,1]}}";
+
+
+
+        AccountTransactionDto accountTransaction = new AccountTransactionDto(Long.valueOf(1),"MILES",Long.valueOf(1),"MIKE",Long.valueOf(1),30.55, LocalDate.parse("2021-01-01"));
+
+
+
+
+        when(fetchAccountTransactionFlow.getAccountTransactionById(anyDouble())).thenReturn(accountTransaction);
+
+
+
+        MvcResult mvcResult = mockMvc.perform(get((String.format("%s/%s",ACCOUNT_TYPE_CONTROLLER_URL,"search/%l",1)))
+                        .param("id", "1")
+                        .servletPath(APP_URL)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andReturn();
+        verify(fetchAccountTransactionFlow,times(1)).getAccountTransactionById(1.0);
+        String val = mvcResult.getResponse().getContentAsString();
+        assertEquals(expectedResponse,mvcResult.getResponse().getContentAsString());
+    }
+*/
     @Test
     public void decrease() throws Exception {
         String accountTransactionToBeCreated ="{\"transactionId\":1,\"accountTypeMnemonic\":\"MILES\",\"typeId\":1,\"accountMemberUsername\":\"MIKE\",\"memberId\":1,\"amount\":-30.55,\"transactionDate\":[2021,1,1]}}";
@@ -156,5 +183,32 @@ public class AccountTransactionControllerTest {
         String val =  mvcResult.getResponse().getContentAsString();
         assertEquals(expectedResponse,
                 mvcResult.getResponse().getContentAsString());
+    }
+
+    @Test
+    public void getMemberBalance() throws Exception {
+        String expectedResponse = "{\"successful\":true,\"payload\":101.5}";
+
+
+
+        Double va =101.5;//  accountTransaction = new AccountTransactionDto(Long.valueOf(1),"MILES",Long.valueOf(1),"MIKE",Long.valueOf(1),30.55, LocalDate.parse("2021-01-01"));
+
+
+
+
+        when(fetchAccountTransactionFlow.getMemberBalance(anyDouble())).thenReturn(va);
+
+
+
+        MvcResult mvcResult = mockMvc.perform(get((String.format("%s/%s",ACCOUNT_TYPE_CONTROLLER_URL,"view_balance/%l",1)))
+                        .param("id", "1")
+                        .servletPath(APP_URL)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andReturn();
+        verify(fetchAccountTransactionFlow,times(1)).getMemberBalance(anyDouble());
+        String val = mvcResult.getResponse().getContentAsString();
+        assertEquals(expectedResponse,mvcResult.getResponse().getContentAsString());
     }
 }

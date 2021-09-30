@@ -9,8 +9,7 @@ import za.ac.nwu.as.domain.persistence.AccountMember;
 public interface AccountMemberRepository extends JpaRepository<AccountMember, Long> {
     @Query(value = "SELECT "+
             "   MEMBER_ID,"+
-            "   MEMBER_Username,"+
-            "   ACCOUNT_BALANCE" +
+            "   MEMBER_Username" +
             "   FROM "+
             "   LENNERT.MEMBER_ACCOUNT "+
             "   WHERE MEMBER_Username = :userName ",nativeQuery = true)

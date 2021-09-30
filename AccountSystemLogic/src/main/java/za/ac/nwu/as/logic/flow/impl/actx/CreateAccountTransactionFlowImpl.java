@@ -13,6 +13,7 @@ import za.ac.nwu.as.logic.flow.FetchAccountTypeFlow;
 import za.ac.nwu.as.translator.AccountTransactionTranslator;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 
 
 @Transactional
@@ -36,7 +37,10 @@ public class CreateAccountTransactionFlowImpl implements CreateAccountTransactio
         //LOGGER.warn("The input object was {}",accountTransactionDto);
         LOGGER.info("The input object was {}", accountTransactionDto);
 
-
+        if(null==accountTransactionDto.getTransactionDate())
+        {
+            accountTransactionDto.setTransactionDate(LocalDate.now());
+        }
         //AccountTransactionDto.setTransactionId(new Long(50L));
 
         //Long transactionId, String accountTypeMnemonic, Long typeId, String accountMemberUsername, Long memberId, Double amount, LocalDate transactionDate

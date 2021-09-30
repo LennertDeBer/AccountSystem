@@ -16,26 +16,25 @@ public class AccountMemberDto implements Serializable {
 
     private Long memberId;
 
-    public AccountMemberDto(Long memberId, String memberUsername, Double accountBalance) {
+    public AccountMemberDto(Long memberId, String memberUsername) {
         this.memberId = memberId;
         this.memberUsername = memberUsername;
-        this.accountBalance = accountBalance;
+
     }
 
     private String memberUsername;
-    private Double accountBalance;
+
 
     public AccountMemberDto() {
     }
 
-    public AccountMemberDto(String memberUsername, Double accountBalance) {
+    public AccountMemberDto(String memberUsername) {
 
         this.memberUsername = memberUsername;
-        this.accountBalance = accountBalance;
+
     }
     public AccountMemberDto(AccountMember accountMember) {
         this.setMemberId(accountMember.getMemberID());
-        this.setAccountBalance(accountMember.getAccountBalance());
         this.setMemberUsername(accountMember.getMemberUsername());
     }
 
@@ -68,19 +67,12 @@ public class AccountMemberDto implements Serializable {
             dataType = "Java.lang.Double",
             example = "50.55",
             required = true)
-    public Double getAccountBalance() {
-        return accountBalance;
-    }
-
-    public void setAccountBalance(Double accountBalance) {
-        this.accountBalance = accountBalance;
-    }
 
 
     @JsonIgnore
     public AccountMember getAccountMember()
     {
-        return new AccountMember(this.getMemberId(), this.getMemberUsername(), this.getAccountBalance());
+        return new AccountMember(this.getMemberId(), this.getMemberUsername());
     }
     @JsonIgnore
     public AccountMember getAccountMember(Long memberId,String username)
@@ -93,20 +85,19 @@ public class AccountMemberDto implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AccountMemberDto that = (AccountMemberDto) o;
-        return Objects.equals(memberUsername, that.memberUsername) && Objects.equals(accountBalance, that.accountBalance);
+        return Objects.equals(memberUsername, that.memberUsername);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(memberUsername, accountBalance);
+        return Objects.hash(memberUsername);
     }
 
     @Override
     public String toString() {
         return "AccountMemberDto{" +
                 "memberId=" + memberId +
-                ",  memberUsername='" + memberUsername + '\'' +
-                ", accountBalance=" + String.format("%.2f",accountBalance) +
+                ",  memberUsername='" + memberUsername+"'"+
                 '}';
     }
 }

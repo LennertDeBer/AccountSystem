@@ -117,17 +117,17 @@
                                     <limit>
                                         <counter>INSTRUCTION</counter>
                                         <value>COVERDRATIO</value>
-                                        <minimum>0</minimum>
+                                        <minimum>0.8</minimum>
                                     </limit>
                                     <limit>
                                         <counter>LINE</counter>
                                         <value>COVERDRATIO</value>
-                                        <minimum>0</minimum>
+                                        <minimum>0.8</minimum>
                                     </limit>
                                     <limit>
                                         <counter>BRANCH</counter>
                                         <value>COVERDRATIO</value>
-                                        <minimum>0</minimum>
+                                        <minimum>0.8</minimum>
                                     </limit>
                                 </limits>
                             </rule>
@@ -137,7 +137,7 @@
                         <execution>
                             <id>jacoco-check</id>
                             <phase>test</phase>
-                           <!-- <goals>
+                            <!--<goals>
                                 <goal>check</goal>
                             </goals>-->
                         </execution>
