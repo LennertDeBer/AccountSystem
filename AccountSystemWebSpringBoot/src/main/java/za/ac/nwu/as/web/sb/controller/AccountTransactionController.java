@@ -46,7 +46,7 @@ public class AccountTransactionController {
     }
 
 
-    @PostMapping("new")
+    @PostMapping("add")
     @ApiOperation(value ="Create a new AccountType.", notes ="Crates a new AccountType in the DB.")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "The AccountTransaction was created successfully", response = GeneralResponse.class),
@@ -55,7 +55,7 @@ public class AccountTransactionController {
     })
 
     /*Change ApiParam*/
-    public ResponseEntity<GeneralResponse<AccountTransactionDto>> create(/*
+    public ResponseEntity<GeneralResponse<AccountTransactionDto>> add(/*
             @ApiParam(value = "The Id that uniquely identifies the AccountTransaction.",
                     example = "1",
                     name = "id",
@@ -96,6 +96,26 @@ public class AccountTransactionController {
         GeneralResponse<AccountTransactionDto> response = new GeneralResponse<>(true,accountTransactionsResponse);
         return new ResponseEntity<>(response,HttpStatus.CREATED);
     }
+
+
+
+    @PostMapping("decrease")
+    @ApiOperation(value ="Create a new AccountType.", notes ="Crates a new AccountType in the DB.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "The AccountTransaction was created successfully", response = GeneralResponse.class),
+            @ApiResponse(code = 400, message = "Bad Request", response = GeneralResponse.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = GeneralResponse.class)
+    })
+    public ResponseEntity<GeneralResponse<AccountTransactionDto>> decrease(
+            @ApiParam(value = "Request body to create a new AccountType",
+            required = true)
+            @RequestBody AccountTransactionDto accountTransactions){
+        accountTransactions.setAmount(0.00-accountTransactions.getAmount());
+        AccountTransactionDto accountTransactionsResponse = createAccountTransactionFlow.create(accountTransactions);
+        GeneralResponse<AccountTransactionDto> response = new GeneralResponse<>(true,accountTransactionsResponse);
+        return new ResponseEntity<>(response,HttpStatus.CREATED);
+    }
+
 
 
 

@@ -12,6 +12,7 @@ import za.ac.nwu.as.domain.persistence.AccountTransaction;
 import za.ac.nwu.as.repo.config.RepositoryConfigTest;
 
 import static org.junit.Assert.*;
+
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @ContextConfiguration(classes = {RepositoryConfigTest.class})
@@ -28,18 +29,21 @@ public class AccountTransactionRepositoryTest {
     }
 
 
+
     @Test
-    public void getAccountTransactionByIdNativeQuery1() {
+    public void getAccountTransactionByIdNativeQuery() {
         AccountTransaction transaction = accountTransactionRepository.getAccountTransactionByIdNativeQuery(new Long(1));
         assertNotNull(transaction);
         assertEquals(new Long(1),transaction.getTransactionId());
     }
 
     @Test
-    public void getAccountTransactionByIdNativeQuery() {
+    public void getAccountTransactionByIdNativeQueryE() {
         AccountTransaction transaction = accountTransactionRepository.getAccountTransactionByIdNativeQuery(new Long(4));
         assertNull(transaction);
         //assertEquals("MILES",miles.getMnemonic());
 
     }
+
+
 }

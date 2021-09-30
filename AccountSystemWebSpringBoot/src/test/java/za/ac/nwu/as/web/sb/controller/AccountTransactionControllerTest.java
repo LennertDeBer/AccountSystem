@@ -79,7 +79,7 @@ public class AccountTransactionControllerTest {
     }
 
     @Test
-    public void create() throws Exception {
+    public void add() throws Exception {
         String accountTransactionToBeCreated ="{\"transactionId\":1,\"accountTypeMnemonic\":\"MILES\",\"typeId\":1,\"accountMemberUsername\":\"MIKE\",\"memberId\":1,\"amount\":30.55,\"transactionDate\":[2021,1,1]}}";
         String expectedResponse = "{\"successful\":true,\"payload\":{\"transactionId\":1,\"accountTypeMnemonic\":\"MILES\",\"typeId\":1,\"accountMemberUsername\":\"MIKE\",\"memberId\":1,\"amount\":30.55,\"transactionDate\":[2021,1,1]}}";
 
@@ -90,7 +90,7 @@ public class AccountTransactionControllerTest {
 
         when(createAccountTransactionFlow.create(eq(accountTransaction))).then(returnsFirstArg());
 
-        MvcResult mvcResult = mockMvc.perform(post((String.format("%s/%s",ACCOUNT_TYPE_CONTROLLER_URL,"new")))
+        MvcResult mvcResult = mockMvc.perform(post((String.format("%s/%s",ACCOUNT_TYPE_CONTROLLER_URL,"add")))
                         .servletPath(APP_URL)
                         .accept(MediaType.APPLICATION_JSON)
                         .content(accountTransactionToBeCreated)
@@ -103,6 +103,7 @@ public class AccountTransactionControllerTest {
         assertEquals(expectedResponse,
                 mvcResult.getResponse().getContentAsString());
     }
+
 
     @Test
     public void getAccountTransactionById() throws Exception {
@@ -129,5 +130,31 @@ public class AccountTransactionControllerTest {
         verify(fetchAccountTransactionFlow,times(1)).getAccountTransactionById(1.0);
         String val = mvcResult.getResponse().getContentAsString();
         assertEquals(expectedResponse,mvcResult.getResponse().getContentAsString());
+    }
+
+    @Test
+    public void decrease() throws Exception {
+        String accountTransactionToBeCreated ="{\"transactionId\":1,\"accountTypeMnemonic\":\"MILES\",\"typeId\":1,\"accountMemberUsername\":\"MIKE\",\"memberId\":1,\"amount\":-30.55,\"transactionDate\":[2021,1,1]}}";
+        String expectedResponse = "{\"successful\":true,\"payload\":{\"transactionId\":1,\"accountTypeMnemonic\":\"MILES\",\"typeId\":1,\"accountMemberUsername\":\"MIKE\",\"memberId\":1,\"amount\":30.55,\"transactionDate\":[2021,1,1]}}";
+
+
+
+        AccountTransactionDto accountTransaction = new AccountTransactionDto(Long.valueOf(1),"MILES",Long.valueOf(1),"MIKE",Long.valueOf(1),30.55, LocalDate.parse("2021-01-01"));
+
+
+        when(createAccountTransactionFlow.create(eq(accountTransaction))).then(returnsFirstArg());
+
+        MvcResult mvcResult = mockMvc.perform(post((String.format("%s/%s",ACCOUNT_TYPE_CONTROLLER_URL,"decrease")))
+                        .servletPath(APP_URL)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .content(accountTransactionToBeCreated)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated())
+                .andReturn();
+
+        verify(createAccountTransactionFlow, times(1)).create(eq(accountTransaction));
+        String val =  mvcResult.getResponse().getContentAsString();
+        assertEquals(expectedResponse,
+                mvcResult.getResponse().getContentAsString());
     }
 }
