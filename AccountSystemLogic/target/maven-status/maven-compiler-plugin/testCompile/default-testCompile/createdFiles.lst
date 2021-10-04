@@ -1,8 +1,0 @@
-za\ac\nwu\as\logic\flow\impl\acty\CreateAccountTypeFlowImplTest.class
-za\ac\nwu\as\logic\flow\impl\acmeb\FetchAccountMemberFlowImplTest.class
-za\ac\nwu\as\logic\flow\impl\acty\FetchAccountTypeFlowImplTest.class
-za\ac\nwu\as\logic\flow\impl\acty\ModifyAccountTypeFlowImplTest.class
-za\ac\nwu\as\logic\flow\impl\acmeb\CreateAccountMemberFlowImplTest.class
-za\ac\nwu\as\logic\flow\impl\actx\CreateAccountTransactionFlowImplTest.class
-za\ac\nwu\as\logic\flow\impl\actx\FetchAccountTransactionFlowImplTest.class
-za\ac\nwu\as\logic\flow\impl\ModuloTest.class
