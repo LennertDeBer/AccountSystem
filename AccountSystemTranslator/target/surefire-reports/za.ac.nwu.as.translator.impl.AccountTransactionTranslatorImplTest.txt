@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: za.ac.nwu.as.translator.impl.AccountTransactionTranslatorImplTest
 -------------------------------------------------------------------------------
-Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.08 s - in za.ac.nwu.as.translator.impl.AccountTransactionTranslatorImplTest
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.069 s - in za.ac.nwu.as.translator.impl.AccountTransactionTranslatorImplTest
