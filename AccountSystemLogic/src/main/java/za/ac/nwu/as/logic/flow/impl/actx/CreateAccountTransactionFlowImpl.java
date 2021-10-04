@@ -45,7 +45,7 @@ try {
 {
     accountTransactionDto.setTransactionDate(LocalDate.now());
 }
-        //AccountTransactionDto.setTransactionId(new Long(50L));
+        accountTransactionDto.setTransactionId(null);
 
         //Long transactionId, String accountTypeMnemonic, Long typeId, String accountMemberUsername, Long memberId, Double amount, LocalDate transactionDate
        /*AccountTransactionDto dto = new AccountTransactionDto();
