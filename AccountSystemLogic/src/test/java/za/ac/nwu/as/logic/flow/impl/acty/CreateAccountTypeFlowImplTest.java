@@ -69,7 +69,7 @@ public class CreateAccountTypeFlowImplTest {
        //doThrow(new RuntimeException()).when(translator).someMethod();
         //only on exception per method
         //not void
-        String accountTypeToBeCreated1 ="AccountTypeDto{ID= 1,  mnenomic ='MILES', accountTypeName ='Miles', creationDate =2020-01-01}";
+        String accountTypeToBeCreated1 ="AccountTypeDto{ID= 1,  mnemonic ='MILES', accountTypeName ='Miles', creationDate =2020-01-01}";
         AccountTypeDto accountType1 = new AccountTypeDto(Long.valueOf(1),"MILES", "Miles", LocalDate.parse("2020-01-01"));
 
         when(translator.create(any(AccountTypeDto.class))).thenReturn(accountType1);

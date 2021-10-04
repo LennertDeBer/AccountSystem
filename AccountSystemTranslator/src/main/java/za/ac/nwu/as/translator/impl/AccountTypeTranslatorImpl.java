@@ -54,7 +54,7 @@ public AccountTypeTranslatorImpl(AccountTypeRepository accountTypeRepository)
                 return new AccountTypeDto(accountType);
             } catch (Exception e) {
 
-                throw new RuntimeException("Unable to save to DB.", e);
+                throw new RuntimeException("Unable to read from DB.", e);
             }
     }
 
@@ -65,7 +65,7 @@ public AccountTypeTranslatorImpl(AccountTypeRepository accountTypeRepository)
                 return new AccountTypeDto(accountType);
             } catch (Exception e) {
 
-                throw new RuntimeException("Unable to save to DB.", e);
+                throw new RuntimeException("Unable to read from DB.", e);
             }
         }
 
@@ -73,7 +73,7 @@ public AccountTypeTranslatorImpl(AccountTypeRepository accountTypeRepository)
     @PersistenceContext
     private EntityManager manage;
 
-
+/*
     public void deleteAccountType(String mnemonic) {
         try {
             List<AccountTypeDto> accountTypeDtos = getAllAccountTypes();
@@ -85,7 +85,7 @@ public AccountTypeTranslatorImpl(AccountTypeRepository accountTypeRepository)
 
             throw new RuntimeException("Unable to save to DB.", e);
         }
-    }
+    }*/
 
     @Override
     public AccountTypeDto updateAccountType(String mnemonic, String newAccountTypeName, LocalDate newdate) {

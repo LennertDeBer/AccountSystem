@@ -58,7 +58,7 @@ public class ModifyAccountTypeFlowImplTest {
 
     @Test
     public void updateAccountType() throws Exception {
-        String expectedResponse = "AccountTypeDto{ID= 3,  mnenomic ='PLAY', accountTypeName ='The new Play account type name', creationDate =2021-09-01}";
+        String expectedResponse = "AccountTypeDto{ID= 3,  mnemonic ='PLAY', accountTypeName ='The new Play account type name', creationDate =2021-09-01}";
 
         AccountTypeDto accountType = new AccountTypeDto(Long.valueOf(3),"PLAY", "The new Play account type name",
                 LocalDate.parse("2021-09-01"));
@@ -78,7 +78,7 @@ public class ModifyAccountTypeFlowImplTest {
 
     @Test
     public void updateAccountTypeWithNoOptionalDate() throws Exception {
-        String expectedResponse = "AccountTypeDto{ID= 3,  mnenomic ='PLAY', accountTypeName ='The new Play account type name', creationDate ="+LocalDate.now()+"}";
+        String expectedResponse = "AccountTypeDto{ID= 3,  mnemonic ='PLAY', accountTypeName ='The new Play account type name', creationDate ="+LocalDate.now()+"}";
 
         AccountTypeDto accountType = new AccountTypeDto(Long.valueOf(3),"PLAY", "The new Play account type name",
                 LocalDate.now());

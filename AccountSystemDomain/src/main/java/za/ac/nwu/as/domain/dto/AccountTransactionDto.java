@@ -115,10 +115,10 @@ public class AccountTransactionDto implements Serializable {
     }
 
     @ApiModelProperty(position = 2,
-            value = "AccountTransaction AcountTypeID",
-            name = "AcountTypeID",
-            notes = "The primary key used in the AccountType",
-            dataType = "Java.lang.LONG",
+            value = "AccountTransaction AccountTransaction",
+            name = "AccountTransaction",
+            notes = "The primary key used in the AccountTransaction",
+            dataType = "Java.lang.Long",
             example = "1",
             required = true)
     public Long getTypeId() {

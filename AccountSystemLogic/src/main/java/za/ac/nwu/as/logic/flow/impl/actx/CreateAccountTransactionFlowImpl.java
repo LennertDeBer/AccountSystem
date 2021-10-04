@@ -36,11 +36,15 @@ public class CreateAccountTransactionFlowImpl implements CreateAccountTransactio
     public AccountTransactionDto create(AccountTransactionDto accountTransactionDto) {
         //LOGGER.warn("The input object was {}",accountTransactionDto);
         LOGGER.info("The input object was {}", accountTransactionDto);
-
-        if(null==accountTransactionDto.getTransactionDate())
-        {
-            accountTransactionDto.setTransactionDate(LocalDate.now());
-        }
+try {
+    if (null == accountTransactionDto.getTransactionDate()) {
+        throw new Exception("no date was set the current date will be used");
+       // accountTransactionDto.setTransactionDate(LocalDate.now());
+    }
+}catch (Exception e)
+{
+    accountTransactionDto.setTransactionDate(LocalDate.now());
+}
         //AccountTransactionDto.setTransactionId(new Long(50L));
 
         //Long transactionId, String accountTypeMnemonic, Long typeId, String accountMemberUsername, Long memberId, Double amount, LocalDate transactionDate

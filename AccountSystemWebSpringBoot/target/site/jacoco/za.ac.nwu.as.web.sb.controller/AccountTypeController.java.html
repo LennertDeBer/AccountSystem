@@ -89,7 +89,7 @@ public class AccountTypeController {
 <span class="fc" id="L89">        return new ResponseEntity&lt;&gt;(response,HttpStatus.OK);</span>
     }
 
-
+/*
     @DeleteMapping(&quot;{mnemonic}&quot;)
     @ApiOperation(value = &quot;Deletes the specified AccountType.&quot;,notes = &quot;Deletes the AccountType corresponding to the given mnemonic.&quot;)
     @ApiResponses(value = {
@@ -104,10 +104,10 @@ public class AccountTypeController {
             name = &quot;mnemonic&quot;,
             required = true)
             @PathVariable(&quot;mnemonic&quot;) final String mnemonic){
-<span class="fc" id="L107">        AccountTypeDto accountType = modifyAccountTypeFlow.deleteAccountType(mnemonic);</span>
-<span class="fc" id="L108">        GeneralResponse&lt;AccountTypeDto&gt; response = new GeneralResponse&lt;&gt;(true,accountType);</span>
-<span class="fc" id="L109">        return new ResponseEntity&lt;&gt;(response,HttpStatus.OK);</span>
-    }
+        AccountTypeDto accountType = modifyAccountTypeFlow.deleteAccountType(mnemonic);
+        GeneralResponse&lt;AccountTypeDto&gt; response = new GeneralResponse&lt;&gt;(true,accountType);
+        return new ResponseEntity&lt;&gt;(response,HttpStatus.OK);
+    }*/
     @PutMapping(&quot;/update/{mnemonic}&quot;)
     @ApiOperation(value = &quot;Update the specified AccountType.&quot;,notes = &quot;Updates the AccountType corresponding to the given mnemonic.&quot;)
     @ApiResponses(value = {

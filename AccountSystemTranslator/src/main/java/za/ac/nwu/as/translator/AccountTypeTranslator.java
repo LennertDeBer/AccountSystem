@@ -10,7 +10,7 @@ public interface AccountTypeTranslator {
     AccountTypeDto create(AccountTypeDto accountType);
     AccountTypeDto getAccountTypeByMnemonicNativeQuery(String mnemonic);
     AccountTypeDto getAccountTypeByMnemonic(String mnemonic);
-    void deleteAccountType(String mnemonic);
+ //   void deleteAccountType(String mnemonic);
     AccountTypeDto updateAccountType(String mnemonic, String newAccountTypeName, LocalDate newdate);
    // AccountTypeDto getAccountTypeDtoByMnemonic(String mnemonic);
 

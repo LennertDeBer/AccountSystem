@@ -109,7 +109,7 @@ public class AccountTypeControllerTest {
         assertEquals(expectedResponse,
                 mvcResult.getResponse().getContentAsString());
     }
-
+/*
     @Test
     //@Ignore
     public void deleteAccountType() throws Exception {
@@ -134,6 +134,8 @@ public class AccountTypeControllerTest {
         assertEquals(expectedResponse,
                 mvcResult.getResponse().getContentAsString());
     }
+    */
+
     @Test
     public void updateAccountType() throws Exception {
         String expectedResponse = "{\"successful\":true,\"payload\":" +

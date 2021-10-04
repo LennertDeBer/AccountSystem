@@ -47,7 +47,7 @@ public class AccountTransactionController {
 
 
     @PostMapping(&quot;add&quot;)
-    @ApiOperation(value =&quot;Create a new AccountType.&quot;, notes =&quot;Crates a new AccountType in the DB.&quot;)
+    @ApiOperation(value =&quot;Create a new add AccountTransaction.&quot;, notes =&quot;Crates a new AccountTransaction in the DB.&quot;)
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = &quot;The AccountTransaction was created successfully&quot;, response = GeneralResponse.class),
             @ApiResponse(code = 400, message = &quot;Bad Request&quot;, response = GeneralResponse.class),
@@ -83,7 +83,7 @@ public class AccountTransactionController {
                    LocalDate newCreationDate
 
 */
-            @ApiParam(value = &quot;Request body to create a new AccountType&quot;,
+            @ApiParam(value = &quot;Request body to create a new addition&quot;,
                     required = true)
             @RequestBody AccountTransactionDto accountTransactions){
       /*  AccountType accountType = fetchAccountTypeFlow.getAccountTypeDbEntityByMnemonic(mnemonic);
@@ -100,14 +100,14 @@ public class AccountTransactionController {
 
 
     @PostMapping(&quot;decrease&quot;)
-    @ApiOperation(value =&quot;Create a new AccountType.&quot;, notes =&quot;Crates a new AccountType in the DB.&quot;)
+    @ApiOperation(value =&quot;Create a new decrease AccountTransaction.&quot;, notes =&quot;Crates a new AccountTransaction in the DB.&quot;)
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = &quot;The AccountTransaction was created successfully&quot;, response = GeneralResponse.class),
             @ApiResponse(code = 400, message = &quot;Bad Request&quot;, response = GeneralResponse.class),
             @ApiResponse(code = 500, message = &quot;Internal Server Error&quot;, response = GeneralResponse.class)
     })
     public ResponseEntity&lt;GeneralResponse&lt;AccountTransactionDto&gt;&gt; decrease(
-            @ApiParam(value = &quot;Request body to create a new AccountType&quot;,
+            @ApiParam(value = &quot;Request body to create a new decrease&quot;,
             required = true)
             @RequestBody AccountTransactionDto accountTransactions){
 <span class="fc" id="L113">        accountTransactions.setAmount(0.00-accountTransactions.getAmount());</span>
@@ -120,7 +120,7 @@ public class AccountTransactionController {
 
 
     @GetMapping(&quot;search/{id}&quot;)
-    @ApiOperation(value = &quot;Gets all the configured Account types.&quot;, notes = &quot;Returns a list of account types&quot;)
+    @ApiOperation(value = &quot;Gets all the configured account transactions.&quot;, notes = &quot;Returns a list of account transaction&quot;)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = &quot;Account types returned&quot;, response = GeneralResponse.class),
             @ApiResponse(code = 400, message = &quot;Bad Request&quot;, response = GeneralResponse.class),
@@ -138,7 +138,7 @@ public class AccountTransactionController {
 <span class="fc" id="L138">        return new ResponseEntity&lt;&gt;(response, HttpStatus.OK);</span>
     }
     @GetMapping(&quot;view_balance/{id}&quot;)
-    @ApiOperation(value = &quot;Gets all the configured Account types.&quot;, notes = &quot;Returns a list of account types&quot;)
+    @ApiOperation(value = &quot;Gets a account balance for a specific member.&quot;, notes = &quot;Returns the total of all the transactions associated with a specific member&quot;)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = &quot;Account types returned&quot;, response = GeneralResponse.class),
             @ApiResponse(code = 400, message = &quot;Bad Request&quot;, response = GeneralResponse.class),
@@ -146,7 +146,7 @@ public class AccountTransactionController {
             @ApiResponse(code = 500, message = &quot;Internal Server Error&quot;, response = GeneralResponse.class)
     })
     public ResponseEntity&lt;GeneralResponse&lt;Double&gt;&gt; getMemberBalance(
-            @ApiParam(value = &quot;The  id by which the AccountMember can be uniquely identified.&quot;,
+            @ApiParam(value = &quot;The  id by which a member can be uniquely identified.&quot;,
                     example = &quot;1&quot;,
                     name = &quot;id&quot;,
                     required = true)

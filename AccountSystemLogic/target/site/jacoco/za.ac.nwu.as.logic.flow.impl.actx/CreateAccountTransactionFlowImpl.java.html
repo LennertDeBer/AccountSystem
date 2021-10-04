@@ -36,11 +36,15 @@ public class CreateAccountTransactionFlowImpl implements CreateAccountTransactio
     public AccountTransactionDto create(AccountTransactionDto accountTransactionDto) {
         //LOGGER.warn(&quot;The input object was {}&quot;,accountTransactionDto);
 <span class="fc" id="L38">        LOGGER.info(&quot;The input object was {}&quot;, accountTransactionDto);</span>
-
-<span class="pc bpc" id="L40" title="1 of 2 branches missed.">        if(null==accountTransactionDto.getTransactionDate())</span>
-        {
-<span class="nc" id="L42">            accountTransactionDto.setTransactionDate(LocalDate.now());</span>
-        }
+try {
+<span class="pc bpc" id="L40" title="1 of 2 branches missed.">    if (null == accountTransactionDto.getTransactionDate()) {</span>
+<span class="nc" id="L41">        throw new Exception(&quot;no date was set the current date will be used&quot;);</span>
+       // accountTransactionDto.setTransactionDate(LocalDate.now());
+    }
+<span class="nc" id="L44">}catch (Exception e)</span>
+{
+<span class="nc" id="L46">    accountTransactionDto.setTransactionDate(LocalDate.now());</span>
+<span class="fc" id="L47">}</span>
         //AccountTransactionDto.setTransactionId(new Long(50L));
 
         //Long transactionId, String accountTypeMnemonic, Long typeId, String accountMemberUsername, Long memberId, Double amount, LocalDate transactionDate
@@ -49,16 +53,16 @@ public class CreateAccountTransactionFlowImpl implements CreateAccountTransactio
 
 
       // Discovery code for method
-<span class="fc" id="L52">        AccountType accountType = fetchAccountTypeFlow.getAccountTypeDbEntityByMnemonic(accountTransactionDto.getAccountTypeMnemonic());</span>
-<span class="fc" id="L53">        AccountMember accountMember = fetchAccountMemberFlow.getAccountMemberDbEntityByUsername(accountTransactionDto.getAccountMemberUsername());</span>
+<span class="fc" id="L56">        AccountType accountType = fetchAccountTypeFlow.getAccountTypeDbEntityByMnemonic(accountTransactionDto.getAccountTypeMnemonic());</span>
+<span class="fc" id="L57">        AccountMember accountMember = fetchAccountMemberFlow.getAccountMemberDbEntityByUsername(accountTransactionDto.getAccountMemberUsername());</span>
 
        // if(LOGGER.isInfoEnabled()) {
        //     LOGGER.info(&quot;Got AccountType for {} and the AccountTypeId is {}&quot;, accountTransactionDto.getAccountTypeMnemonic(), accountType.getAccountTypeID());
         //    LOGGER.info(&quot;Got AccountMember for  {} and the AccountMemberId is {}&quot;, accountTransactionDto.getAccountMemberUsername(), accountMember.getMemberID());
        // }
-<span class="fc" id="L59">        AccountTransaction accountTransaction = accountTransactionDto.buildAccountTransaction(accountType, accountMember);</span>
+<span class="fc" id="L63">        AccountTransaction accountTransaction = accountTransactionDto.buildAccountTransaction(accountType, accountMember);</span>
 
-<span class="fc" id="L61">        AccountTransaction createAccountTransaction = accountTransactionTranslator.save(accountTransaction);</span>
+<span class="fc" id="L65">        AccountTransaction createAccountTransaction = accountTransactionTranslator.save(accountTransaction);</span>
         //AccountTransaction createAccountTransaction = accountTransactionTranslator.save(at);
 
       /*  if(null != accountTransactionDto.getDetails())
@@ -68,10 +72,10 @@ public class CreateAccountTransactionFlowImpl implements CreateAccountTransactio
            accountTransactionDetailsTranslator.save(accountTransactionDetails);
         }*/
 
-<span class="fc" id="L71">        AccountTransactionDto result =new AccountTransactionDto(createAccountTransaction);</span>
+<span class="fc" id="L75">        AccountTransactionDto result =new AccountTransactionDto(createAccountTransaction);</span>
        // LOGGER.warn(&quot;The return object is {}&quot;,result);
-<span class="fc" id="L73">        LOGGER.info(&quot;The return object is {}&quot;,result);</span>
-<span class="fc" id="L74">        return result;</span>
+<span class="fc" id="L77">        LOGGER.info(&quot;The return object is {}&quot;,result);</span>
+<span class="fc" id="L78">        return result;</span>
     }
 
    /* @Override

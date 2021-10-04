@@ -54,7 +54,7 @@ public AccountTypeTranslatorImpl(AccountTypeRepository accountTypeRepository)
 <span class="fc" id="L54">                return new AccountTypeDto(accountType);</span>
 <span class="fc" id="L55">            } catch (Exception e) {</span>
 
-<span class="fc" id="L57">                throw new RuntimeException(&quot;Unable to save to DB.&quot;, e);</span>
+<span class="fc" id="L57">                throw new RuntimeException(&quot;Unable to read from DB.&quot;, e);</span>
             }
     }
 
@@ -65,7 +65,7 @@ public AccountTypeTranslatorImpl(AccountTypeRepository accountTypeRepository)
 <span class="fc" id="L65">                return new AccountTypeDto(accountType);</span>
 <span class="nc" id="L66">            } catch (Exception e) {</span>
 
-<span class="nc" id="L68">                throw new RuntimeException(&quot;Unable to save to DB.&quot;, e);</span>
+<span class="nc" id="L68">                throw new RuntimeException(&quot;Unable to read from DB.&quot;, e);</span>
             }
         }
 
@@ -73,19 +73,19 @@ public AccountTypeTranslatorImpl(AccountTypeRepository accountTypeRepository)
     @PersistenceContext
     private EntityManager manage;
 
-
+/*
     public void deleteAccountType(String mnemonic) {
         try {
-<span class="fc" id="L79">            List&lt;AccountTypeDto&gt; accountTypeDtos = getAllAccountTypes();</span>
-<span class="fc" id="L80">            accountTypeDtos.remove(new AccountTypeDto());</span>
-<span class="fc" id="L81">            accountTypeRepository.delete(accountTypeRepository.getAccountTypeByMnemonic(mnemonic));</span>
+            List&lt;AccountTypeDto&gt; accountTypeDtos = getAllAccountTypes();
+            accountTypeDtos.remove(new AccountTypeDto());
+            accountTypeRepository.delete(accountTypeRepository.getAccountTypeByMnemonic(mnemonic));
 
 
-<span class="nc" id="L84">        } catch (Exception e) {</span>
+        } catch (Exception e) {
 
-<span class="nc" id="L86">            throw new RuntimeException(&quot;Unable to save to DB.&quot;, e);</span>
-<span class="fc" id="L87">        }</span>
-<span class="fc" id="L88">    }</span>
+            throw new RuntimeException(&quot;Unable to save to DB.&quot;, e);
+        }
+    }*/
 
     @Override
     public AccountTypeDto updateAccountType(String mnemonic, String newAccountTypeName, LocalDate newdate) {

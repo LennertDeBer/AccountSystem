@@ -37,10 +37,10 @@ public class FetchAccountTypeFlowImplTest {
 
     @Test
     public void getAllAccountTypes() {
-        String expectedResponse = "[AccountTypeDto{ID= 1,  mnenomic ='MILES', accountTypeName ='Miles', creationDate =2020-01-01}," +
-                " AccountTypeDto{ID= 2,  mnenomic ='BUCKS', accountTypeName ='Bucks', creationDate =2020-01-01}," +
-                " AccountTypeDto{ID= 3,  mnenomic ='PLAY', accountTypeName ='AppCurrency', creationDate =2021-09-11}, " +
-                "AccountTypeDto{ID= 4,  mnenomic ='RAND', accountTypeName ='South-African', creationDate =2020-01-01}]";
+        String expectedResponse = "[AccountTypeDto{ID= 1,  mnemonic ='MILES', accountTypeName ='Miles', creationDate =2020-01-01}," +
+                " AccountTypeDto{ID= 2,  mnemonic ='BUCKS', accountTypeName ='Bucks', creationDate =2020-01-01}," +
+                " AccountTypeDto{ID= 3,  mnemonic ='PLAY', accountTypeName ='AppCurrency', creationDate =2021-09-11}, " +
+                "AccountTypeDto{ID= 4,  mnemonic ='RAND', accountTypeName ='South-African', creationDate =2020-01-01}]";
         List<AccountTypeDto> accountTypes = new ArrayList<>();
         accountTypes.add(new AccountTypeDto(Long.valueOf(1),"MILES","Miles", LocalDate.parse("2020-01-01")));
         accountTypes.add(new AccountTypeDto(Long.valueOf(2),"BUCKS","Bucks", LocalDate.parse("2020-01-01")));
@@ -58,7 +58,7 @@ public class FetchAccountTypeFlowImplTest {
 
     @Test
     public void getAccountTypeByMnemonic() {
-        String expectedResponse = "AccountTypeDto{ID= 3,  mnenomic ='PLAY', accountTypeName ='The new Play account type name', creationDate =2021-04-01}";
+        String expectedResponse = "AccountTypeDto{ID= 3,  mnemonic ='PLAY', accountTypeName ='The new Play account type name', creationDate =2021-04-01}";
 
 
 

@@ -37,7 +37,13 @@ public class AccountMemberDto implements Serializable {
         this.setMemberId(accountMember.getMemberID());
         this.setMemberUsername(accountMember.getMemberUsername());
     }
-
+    @ApiModelProperty(position = 1,
+            value = "AccountMember member id",
+            name = "MemberId",
+            notes = "Uniquely identities the account member",
+            dataType = "Java.lang.Long",
+            example = "1",
+            required = true)
     public Long getMemberId() {
         return memberId;
     }
@@ -46,7 +52,7 @@ public class AccountMemberDto implements Serializable {
         this.memberId = memberId;
     }
 
-    @ApiModelProperty(position = 1,
+    @ApiModelProperty(position = 2,
             value = "AccountMember MemberUsername",
             name = "MemberUsername",
             notes = "Uniquely identities the account member",
@@ -60,13 +66,13 @@ public class AccountMemberDto implements Serializable {
     public void setMemberUsername(String memberUsername) {
         this.memberUsername = memberUsername;
     }
-    @ApiModelProperty(position = 2,
+    /*@ApiModelProperty(position = 3,
             value = "AccountMember AccountBalance",
             name = "AccountBalance",
             notes = "Uniquely identities the account member",
             dataType = "Java.lang.Double",
             example = "50.55",
-            required = true)
+            required = true)*/
 
 
     @JsonIgnore

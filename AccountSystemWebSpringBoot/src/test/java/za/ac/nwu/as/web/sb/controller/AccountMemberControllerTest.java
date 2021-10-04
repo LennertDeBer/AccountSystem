@@ -32,11 +32,11 @@ public class AccountMemberControllerTest {
 
     private static final String APP_URL ="/account-system/mvc";
     private static final String ACCOUNT_TYPE_CONTROLLER_URL = APP_URL + "/account-member";
-
+/*
     @Mock
     private FetchAccountTransactionFlow fetchAccountTransactionFlow;
     @Mock
-    private FetchAccountTypeFlow fetchAccountTypeFlow;
+    private FetchAccountTypeFlow fetchAccountTypeFlow;*/
     @Mock
     private FetchAccountMemberFlow fetchAccountMemberFlow;
    @Mock

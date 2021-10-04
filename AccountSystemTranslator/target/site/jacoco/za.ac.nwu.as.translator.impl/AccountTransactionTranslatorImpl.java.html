@@ -50,7 +50,7 @@ public class AccountTransactionTranslatorImpl implements AccountTransactionTrans
 <span class="fc" id="L50">            return new AccountTransactionDto(accountTransaction);</span>
 <span class="fc" id="L51">        } catch (Exception e) {</span>
 
-<span class="fc" id="L53">            throw new RuntimeException(&quot;Unable to save to DB.&quot;, e);</span>
+<span class="fc" id="L53">            throw new RuntimeException(&quot;Unable to read from DB.&quot;, e);</span>
         }
     }
 
@@ -63,7 +63,7 @@ public class AccountTransactionTranslatorImpl implements AccountTransactionTrans
 <span class="fc" id="L63">            return accountTransaction;</span>
 <span class="fc" id="L64">        } catch (Exception e) {</span>
 
-<span class="fc" id="L66">            throw new RuntimeException(&quot;Unable to save to DB.&quot;, e);</span>
+<span class="fc" id="L66">            throw new RuntimeException(&quot;Unable to read from DB.&quot;, e);</span>
         }
     }
 

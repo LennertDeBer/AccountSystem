@@ -58,10 +58,10 @@ public class AccountTypeDto implements Serializable {
         this.setMnemonic(accountType.getMnemonic());
     }
 
-    @ApiModelProperty(position = 1,
+    @ApiModelProperty(position = 2,
             value = "AccountType Mnemonic",
             name = "Mnemonic",
-            notes = "Uniquely identities the account type",
+            notes = "Uniquely identities the account type by sting ",
             dataType = "Java.lang.String",
             example = "MILES",
             required = true)
@@ -69,7 +69,7 @@ public class AccountTypeDto implements Serializable {
 
     public void setMnemonic(String mnemonic){this.mnemonic = mnemonic;}
 
-    @ApiModelProperty(position = 2,
+    @ApiModelProperty(position = 3,
             value = "AccountType Name",
             name = "Name",
             notes = "The name of the account type",
@@ -80,7 +80,7 @@ public class AccountTypeDto implements Serializable {
 
     public void setAccountTypeName(String accountTypeName){this.accountTypeName = accountTypeName;}
 
-    @ApiModelProperty(position = 3,
+    @ApiModelProperty(position = 4,
             value = "AccountType Creation Date",
             name = "CreationDate",
             notes = "This is the date on which the AccountType was created",
@@ -118,7 +118,7 @@ public class AccountTypeDto implements Serializable {
     public String toString(){
         return "AccountTypeDto{"+
                 "ID= "+accountTypeId+
-                ",  mnenomic ='" + mnemonic + '\''
+                ",  mnemonic ='" + mnemonic + '\''
                 +", accountTypeName ='" + accountTypeName +'\''
                 +", creationDate =" + createDate
                 + '}';

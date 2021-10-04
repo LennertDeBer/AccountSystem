@@ -21,13 +21,13 @@ public class ModifyAccountTypeFlowImpl implements ModifyAccountTypeFlow {
         this.accountTypeTranslator = accountTypeTranslator;
     }
 
-    @Override
+  /*  @Override
     public AccountTypeDto deleteAccountType(String mnemonic) {
         AccountTypeDto accountTypeByMnemonic = accountTypeTranslator.getAccountTypeByMnemonic(mnemonic);
         accountTypeTranslator.deleteAccountType(mnemonic);
         return accountTypeByMnemonic;
     }
-
+*/
     @Override
     public AccountTypeDto updateAccountType(String mnemonic, String newAccountTypeName, LocalDate datenew) {
         LOGGER.info("The input mnemonic: {}\n AccountTypeName: {}\n date{}", mnemonic,newAccountTypeName,datenew);
