@@ -120,7 +120,7 @@ public class AccountTransactionController {
 
 
     @GetMapping("search/{id}")
-    @ApiOperation(value = "Gets all the configured account transactions.", notes = "Returns a list of account transaction")
+    @ApiOperation(value = "Get account transaction by id.", notes = "Returns a list of account transaction")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Account types returned", response = GeneralResponse.class),
             @ApiResponse(code = 400, message = "Bad Request", response = GeneralResponse.class),
