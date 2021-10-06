@@ -33,6 +33,7 @@ public class CreateAccountTransactionFlowImpl implements CreateAccountTransactio
     }
 
     @Override
+   // @Transactional(rollbackOn = Exception.class)
     public AccountTransactionDto create(AccountTransactionDto accountTransactionDto) {
         //LOGGER.warn("The input object was {}",accountTransactionDto);
         LOGGER.info("The input object was {}", accountTransactionDto);
