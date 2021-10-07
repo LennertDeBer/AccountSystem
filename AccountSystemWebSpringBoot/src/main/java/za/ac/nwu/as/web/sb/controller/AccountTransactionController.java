@@ -47,7 +47,7 @@ public class AccountTransactionController {
 
 
     @PostMapping("add")
-    @ApiOperation(value ="Create a new add AccountTransaction.", notes ="Crates a new AccountTransaction in the DB.")
+    @ApiOperation(value ="Create a new add AccountTransaction.", notes ="Creates a new AccountTransaction in the DB to increase to total of a member.")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "The AccountTransaction was created successfully", response = GeneralResponse.class),
             @ApiResponse(code = 400, message = "Bad Request", response = GeneralResponse.class),
@@ -100,7 +100,7 @@ public class AccountTransactionController {
 
 
     @PostMapping("decrease")
-    @ApiOperation(value ="Create a new decrease AccountTransaction.", notes ="Crates a new AccountTransaction in the DB.")
+    @ApiOperation(value ="Create a new decrease AccountTransaction.", notes ="Creates a new AccountTransaction in the DB to decrease to total of a member.")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "The AccountTransaction was created successfully", response = GeneralResponse.class),
             @ApiResponse(code = 400, message = "Bad Request", response = GeneralResponse.class),
